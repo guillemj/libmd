@@ -1,0 +1,20 @@
+## Process this file with automake to produce Makefile.in
+
+AM_CPPFLAGS = \
+	-include $(top_builddir)/config.h \
+	-I$(top_builddir) \
+	-I$(top_srcdir)/include \
+	$(nil)
+
+LDADD = $(top_builddir)/src/libmd.la
+
+check_PROGRAMS = \
+	md2 \
+	md4 \
+	md5 \
+	rmd160 \
+	sha1 \
+	sha2 \
+	$(nil)
+
+TESTS = $(check_PROGRAMS)
