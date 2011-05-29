@@ -28,7 +28,11 @@
  */
 #include <string.h>
 #include <sys/types.h>
+#ifdef HAVE_SYS_ENDIAN_H
 #include <sys/endian.h>
+#else
+#include <endian.h>
+#endif
 #include <rmd160.h>
 
 #define PUT_64BIT_LE(cp, value) do {                                    \
