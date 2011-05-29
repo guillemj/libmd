@@ -40,23 +40,14 @@ typedef struct RMD160Context {
 
 __BEGIN_DECLS
 void	 RMD160Init(RMD160_CTX *);
-void	 RMD160Transform(u_int32_t [5], const u_int8_t [RMD160_BLOCK_LENGTH])
-		__attribute__((__bounded__(__minbytes__,1,5)))
-		__attribute__((__bounded__(__minbytes__,2,RMD160_BLOCK_LENGTH)));
-void	 RMD160Update(RMD160_CTX *, const u_int8_t *, size_t)
-		__attribute__((__bounded__(__string__,2,3)));
+void	 RMD160Transform(u_int32_t [5], const u_int8_t [RMD160_BLOCK_LENGTH]);
+void	 RMD160Update(RMD160_CTX *, const u_int8_t *, size_t);
 void	 RMD160Pad(RMD160_CTX *);
-void	 RMD160Final(u_int8_t [RMD160_DIGEST_LENGTH], RMD160_CTX *)
-		__attribute__((__bounded__(__minbytes__,1,RMD160_DIGEST_LENGTH)));
-char	*RMD160End(RMD160_CTX *, char *)
-		__attribute__((__bounded__(__minbytes__,2,RMD160_DIGEST_STRING_LENGTH)));
-char	*RMD160File(const char *, char *)
-		__attribute__((__bounded__(__minbytes__,2,RMD160_DIGEST_STRING_LENGTH)));
-char	*RMD160FileChunk(const char *, char *, off_t, off_t)
-		__attribute__((__bounded__(__minbytes__,2,RMD160_DIGEST_STRING_LENGTH)));
-char	*RMD160Data(const u_int8_t *, size_t, char *)
-		__attribute__((__bounded__(__string__,1,2)))
-		__attribute__((__bounded__(__minbytes__,3,RMD160_DIGEST_STRING_LENGTH)));
+void	 RMD160Final(u_int8_t [RMD160_DIGEST_LENGTH], RMD160_CTX *);
+char	*RMD160End(RMD160_CTX *, char *);
+char	*RMD160File(const char *, char *);
+char	*RMD160FileChunk(const char *, char *, off_t, off_t);
+char	*RMD160Data(const u_int8_t *, size_t, char *);
 __END_DECLS
 
 #endif  /* _RMD160_H */

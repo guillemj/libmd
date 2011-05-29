@@ -30,23 +30,14 @@ typedef struct MD4Context {
 
 __BEGIN_DECLS
 void	 MD4Init(MD4_CTX *);
-void	 MD4Update(MD4_CTX *, const u_int8_t *, size_t)
-		__attribute__((__bounded__(__string__,2,3)));
+void	 MD4Update(MD4_CTX *, const u_int8_t *, size_t);
 void	 MD4Pad(MD4_CTX *);
-void	 MD4Final(u_int8_t [MD4_DIGEST_LENGTH], MD4_CTX *)
-		__attribute__((__bounded__(__minbytes__,1,MD4_DIGEST_LENGTH)));
-void	 MD4Transform(u_int32_t [4], const u_int8_t [MD4_BLOCK_LENGTH])
-		__attribute__((__bounded__(__minbytes__,1,4)))
-		__attribute__((__bounded__(__minbytes__,2,MD4_BLOCK_LENGTH)));
-char	*MD4End(MD4_CTX *, char *)
-		__attribute__((__bounded__(__minbytes__,2,MD4_DIGEST_STRING_LENGTH)));
-char	*MD4File(const char *, char *)
-		__attribute__((__bounded__(__minbytes__,2,MD4_DIGEST_STRING_LENGTH)));
-char	*MD4FileChunk(const char *, char *, off_t, off_t)
-		__attribute__((__bounded__(__minbytes__,2,MD4_DIGEST_STRING_LENGTH)));
-char	*MD4Data(const u_int8_t *, size_t, char *)
-		__attribute__((__bounded__(__string__,1,2)))
-		__attribute__((__bounded__(__minbytes__,3,MD4_DIGEST_STRING_LENGTH)));
+void	 MD4Final(u_int8_t [MD4_DIGEST_LENGTH], MD4_CTX *);
+void	 MD4Transform(u_int32_t [4], const u_int8_t [MD4_BLOCK_LENGTH]);
+char	*MD4End(MD4_CTX *, char *);
+char	*MD4File(const char *, char *);
+char	*MD4FileChunk(const char *, char *, off_t, off_t);
+char	*MD4Data(const u_int8_t *, size_t, char *);
 __END_DECLS
 
 #endif /* _MD4_H_ */
