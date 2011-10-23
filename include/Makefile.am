@@ -8,3 +8,11 @@ include_HEADERS = \
 	sha1.h \
 	sha2.h \
 	$(nil)
+
+# Compatibility headers
+include_HEADERS += \
+	ripemd.h \
+	sha.h \
+	sha256.h \
+	sha512.h \
+	$(nil)
