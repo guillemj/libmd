@@ -9,14 +9,16 @@
 #ifndef _SHA1_H
 #define _SHA1_H
 
+#include <stdint.h>
+
 #define	SHA1_BLOCK_LENGTH		64
 #define	SHA1_DIGEST_LENGTH		20
 #define	SHA1_DIGEST_STRING_LENGTH	(SHA1_DIGEST_LENGTH * 2 + 1)
 
 typedef struct {
-    u_int32_t state[5];
-    u_int64_t count;
-    u_int8_t buffer[SHA1_BLOCK_LENGTH];
+    uint32_t state[5];
+    uint64_t count;
+    uint8_t buffer[SHA1_BLOCK_LENGTH];
 } SHA1_CTX;
 
 #include <sys/cdefs.h>
@@ -24,13 +26,13 @@ typedef struct {
 __BEGIN_DECLS
 void SHA1Init(SHA1_CTX *);
 void SHA1Pad(SHA1_CTX *);
-void SHA1Transform(u_int32_t [5], const u_int8_t [SHA1_BLOCK_LENGTH]);
-void SHA1Update(SHA1_CTX *, const u_int8_t *, size_t);
-void SHA1Final(u_int8_t [SHA1_DIGEST_LENGTH], SHA1_CTX *);
+void SHA1Transform(uint32_t [5], const uint8_t [SHA1_BLOCK_LENGTH]);
+void SHA1Update(SHA1_CTX *, const uint8_t *, size_t);
+void SHA1Final(uint8_t [SHA1_DIGEST_LENGTH], SHA1_CTX *);
 char *SHA1End(SHA1_CTX *, char *);
 char *SHA1File(const char *, char *);
 char *SHA1FileChunk(const char *, char *, off_t, off_t);
-char *SHA1Data(const u_int8_t *, size_t, char *);
+char *SHA1Data(const uint8_t *, size_t, char *);
 __END_DECLS
 
 #define HTONDIGEST(x) do {                                              \

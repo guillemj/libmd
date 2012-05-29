@@ -86,7 +86,7 @@
 
 #define X(i)	x[i]
 
-static u_int8_t PADDING[RMD160_BLOCK_LENGTH] = {
+static uint8_t PADDING[RMD160_BLOCK_LENGTH] = {
 	0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -104,7 +104,7 @@ RMD160Init(RMD160_CTX *ctx)
 }
 
 void
-RMD160Update(RMD160_CTX *ctx, const u_int8_t *input, size_t len)
+RMD160Update(RMD160_CTX *ctx, const uint8_t *input, size_t len)
 {
 	size_t have, off, need;
 
@@ -133,7 +133,7 @@ RMD160Update(RMD160_CTX *ctx, const u_int8_t *input, size_t len)
 void
 RMD160Pad(RMD160_CTX *ctx)
 {
-	u_int8_t size[8];
+	uint8_t size[8];
 	size_t padlen;
 
 	PUT_64BIT_LE(size, ctx->count);
@@ -150,7 +150,7 @@ RMD160Pad(RMD160_CTX *ctx)
 }
 
 void
-RMD160Final(u_int8_t digest[RMD160_DIGEST_LENGTH], RMD160_CTX *ctx)
+RMD160Final(uint8_t digest[RMD160_DIGEST_LENGTH], RMD160_CTX *ctx)
 {
 	int i;
 
@@ -163,9 +163,9 @@ RMD160Final(u_int8_t digest[RMD160_DIGEST_LENGTH], RMD160_CTX *ctx)
 }
 
 void
-RMD160Transform(u_int32_t state[5], const u_int8_t block[RMD160_BLOCK_LENGTH])
+RMD160Transform(uint32_t state[5], const uint8_t block[RMD160_BLOCK_LENGTH])
 {
-	u_int32_t a, b, c, d, e, aa, bb, cc, dd, ee, t, x[16];
+	uint32_t a, b, c, d, e, aa, bb, cc, dd, ee, t, x[16];
 
 #if BYTE_ORDER == LITTLE_ENDIAN
 	memcpy(x, block, RMD160_BLOCK_LENGTH);
@@ -173,11 +173,11 @@ RMD160Transform(u_int32_t state[5], const u_int8_t block[RMD160_BLOCK_LENGTH])
 	int i;
 
 	for (i = 0; i < 16; i++)
-		x[i] = (u_int32_t)(
-		    (u_int32_t)(block[i*4 + 0]) |
-		    (u_int32_t)(block[i*4 + 1]) <<  8 |
-		    (u_int32_t)(block[i*4 + 2]) << 16 |
-		    (u_int32_t)(block[i*4 + 3]) << 24);
+		x[i] = (uint32_t)(
+		    (uint32_t)(block[i*4 + 0]) |
+		    (uint32_t)(block[i*4 + 1]) <<  8 |
+		    (uint32_t)(block[i*4 + 2]) << 16 |
+		    (uint32_t)(block[i*4 + 3]) << 24);
 #endif
 
 	a = state[0];

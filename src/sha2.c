@@ -100,15 +100,15 @@
 
 /*** ENDIAN SPECIFIC COPY MACROS **************************************/
 #define BE_8_TO_32(dst, cp) do {					\
-	(dst) = (u_int32_t)(cp)[3] | ((u_int32_t)(cp)[2] << 8) |	\
-	    ((u_int32_t)(cp)[1] << 16) | ((u_int32_t)(cp)[0] << 24);	\
+	(dst) = (uint32_t)(cp)[3] | ((uint32_t)(cp)[2] << 8) |		\
+	    ((uint32_t)(cp)[1] << 16) | ((uint32_t)(cp)[0] << 24);	\
 } while(0)
 
 #define BE_8_TO_64(dst, cp) do {					\
-	(dst) = (u_int64_t)(cp)[7] | ((u_int64_t)(cp)[6] << 8) |	\
-	    ((u_int64_t)(cp)[5] << 16) | ((u_int64_t)(cp)[4] << 24) |	\
-	    ((u_int64_t)(cp)[3] << 32) | ((u_int64_t)(cp)[2] << 40) |	\
-	    ((u_int64_t)(cp)[1] << 48) | ((u_int64_t)(cp)[0] << 56);	\
+	(dst) = (uint64_t)(cp)[7] | ((uint64_t)(cp)[6] << 8) |		\
+	    ((uint64_t)(cp)[5] << 16) | ((uint64_t)(cp)[4] << 24) |	\
+	    ((uint64_t)(cp)[3] << 32) | ((uint64_t)(cp)[2] << 40) |	\
+	    ((uint64_t)(cp)[1] << 48) | ((uint64_t)(cp)[0] << 56);	\
 } while (0)
 
 #define BE_64_TO_8(cp, src) do {					\
@@ -135,7 +135,7 @@
  * 64-bit words):
  */
 #define ADDINC128(w,n) do {						\
-	(w)[0] += (u_int64_t)(n);					\
+	(w)[0] += (uint64_t)(n);					\
 	if ((w)[0] < (n)) {						\
 		(w)[1]++;						\
 	}								\
@@ -176,7 +176,7 @@
 
 /*** SHA-XYZ INITIAL HASH VALUES AND CONSTANTS ************************/
 /* Hash constant words K for SHA-256: */
-const static u_int32_t K256[64] = {
+const static uint32_t K256[64] = {
 	0x428a2f98UL, 0x71374491UL, 0xb5c0fbcfUL, 0xe9b5dba5UL,
 	0x3956c25bUL, 0x59f111f1UL, 0x923f82a4UL, 0xab1c5ed5UL,
 	0xd807aa98UL, 0x12835b01UL, 0x243185beUL, 0x550c7dc3UL,
@@ -196,7 +196,7 @@ const static u_int32_t K256[64] = {
 };
 
 /* Initial hash value H for SHA-256: */
-const static u_int32_t sha256_initial_hash_value[8] = {
+const static uint32_t sha256_initial_hash_value[8] = {
 	0x6a09e667UL,
 	0xbb67ae85UL,
 	0x3c6ef372UL,
@@ -209,7 +209,7 @@ const static u_int32_t sha256_initial_hash_value[8] = {
 
 #ifndef SHA256_ONLY
 /* Hash constant words K for SHA-384 and SHA-512: */
-const static u_int64_t K512[80] = {
+const static uint64_t K512[80] = {
 	0x428a2f98d728ae22ULL, 0x7137449123ef65cdULL,
 	0xb5c0fbcfec4d3b2fULL, 0xe9b5dba58189dbbcULL,
 	0x3956c25bf348b538ULL, 0x59f111f1b605d019ULL,
@@ -253,7 +253,7 @@ const static u_int64_t K512[80] = {
 };
 
 /* Initial hash value H for SHA-384 */
-const static u_int64_t sha384_initial_hash_value[8] = {
+const static uint64_t sha384_initial_hash_value[8] = {
 	0xcbbb9d5dc1059ed8ULL,
 	0x629a292a367cd507ULL,
 	0x9159015a3070dd17ULL,
@@ -265,7 +265,7 @@ const static u_int64_t sha384_initial_hash_value[8] = {
 };
 
 /* Initial hash value H for SHA-512 */
-const static u_int64_t sha512_initial_hash_value[8] = {
+const static uint64_t sha512_initial_hash_value[8] = {
 	0x6a09e667f3bcc908ULL,
 	0xbb67ae8584caa73bULL,
 	0x3c6ef372fe94f82bULL,
@@ -315,10 +315,10 @@ SHA256Init(SHA2_CTX *context)
 } while(0)
 
 void
-SHA256Transform(u_int32_t state[8], const u_int8_t data[SHA256_BLOCK_LENGTH])
+SHA256Transform(uint32_t state[8], const uint8_t data[SHA256_BLOCK_LENGTH])
 {
-	u_int32_t	a, b, c, d, e, f, g, h, s0, s1;
-	u_int32_t	T1, W256[16];
+	uint32_t	a, b, c, d, e, f, g, h, s0, s1;
+	uint32_t	T1, W256[16];
 	int		j;
 
 	/* Initialize registers with the prev. intermediate value */
@@ -373,10 +373,10 @@ SHA256Transform(u_int32_t state[8], const u_int8_t data[SHA256_BLOCK_LENGTH])
 #else /* SHA2_UNROLL_TRANSFORM */
 
 void
-SHA256Transform(u_int32_t state[8], const u_int8_t data[SHA256_BLOCK_LENGTH])
+SHA256Transform(uint32_t state[8], const uint8_t data[SHA256_BLOCK_LENGTH])
 {
-	u_int32_t	a, b, c, d, e, f, g, h, s0, s1;
-	u_int32_t	T1, T2, W256[16];
+	uint32_t	a, b, c, d, e, f, g, h, s0, s1;
+	uint32_t	T1, T2, W256[16];
 	int		j;
 
 	/* Initialize registers with the prev. intermediate value */
@@ -448,7 +448,7 @@ SHA256Transform(u_int32_t state[8], const u_int8_t data[SHA256_BLOCK_LENGTH])
 #endif /* SHA2_UNROLL_TRANSFORM */
 
 void
-SHA256Update(SHA2_CTX *context, const u_int8_t *data, size_t len)
+SHA256Update(SHA2_CTX *context, const uint8_t *data, size_t len)
 {
 	size_t	freespace, usedspace;
 
@@ -537,7 +537,7 @@ SHA256Pad(SHA2_CTX *context)
 }
 
 void
-SHA256Final(u_int8_t digest[SHA256_DIGEST_LENGTH], SHA2_CTX *context)
+SHA256Final(uint8_t digest[SHA256_DIGEST_LENGTH], SHA2_CTX *context)
 {
 	SHA256Pad(context);
 
@@ -597,10 +597,10 @@ SHA512Init(SHA2_CTX *context)
 } while(0)
 
 void
-SHA512Transform(u_int64_t state[8], const u_int8_t data[SHA512_BLOCK_LENGTH])
+SHA512Transform(uint64_t state[8], const uint8_t data[SHA512_BLOCK_LENGTH])
 {
-	u_int64_t	a, b, c, d, e, f, g, h, s0, s1;
-	u_int64_t	T1, W512[16];
+	uint64_t	a, b, c, d, e, f, g, h, s0, s1;
+	uint64_t	T1, W512[16];
 	int		j;
 
 	/* Initialize registers with the prev. intermediate value */
@@ -655,10 +655,10 @@ SHA512Transform(u_int64_t state[8], const u_int8_t data[SHA512_BLOCK_LENGTH])
 #else /* SHA2_UNROLL_TRANSFORM */
 
 void
-SHA512Transform(u_int64_t state[8], const u_int8_t data[SHA512_BLOCK_LENGTH])
+SHA512Transform(uint64_t state[8], const uint8_t data[SHA512_BLOCK_LENGTH])
 {
-	u_int64_t	a, b, c, d, e, f, g, h, s0, s1;
-	u_int64_t	T1, T2, W512[16];
+	uint64_t	a, b, c, d, e, f, g, h, s0, s1;
+	uint64_t	T1, T2, W512[16];
 	int		j;
 
 	/* Initialize registers with the prev. intermediate value */
@@ -730,7 +730,7 @@ SHA512Transform(u_int64_t state[8], const u_int8_t data[SHA512_BLOCK_LENGTH])
 #endif /* SHA2_UNROLL_TRANSFORM */
 
 void
-SHA512Update(SHA2_CTX *context, const u_int8_t *data, size_t len)
+SHA512Update(SHA2_CTX *context, const uint8_t *data, size_t len)
 {
 	size_t	freespace, usedspace;
 
@@ -819,7 +819,7 @@ SHA512Pad(SHA2_CTX *context)
 }
 
 void
-SHA512Final(u_int8_t digest[SHA512_DIGEST_LENGTH], SHA2_CTX *context)
+SHA512Final(uint8_t digest[SHA512_DIGEST_LENGTH], SHA2_CTX *context)
 {
 	SHA512Pad(context);
 
@@ -856,7 +856,7 @@ __weak_alias(SHA384Update, SHA512Update);
 __weak_alias(SHA384Pad, SHA512Pad);
 
 void
-SHA384Final(u_int8_t digest[SHA384_DIGEST_LENGTH], SHA2_CTX *context)
+SHA384Final(uint8_t digest[SHA384_DIGEST_LENGTH], SHA2_CTX *context)
 {
 	SHA384Pad(context);
 

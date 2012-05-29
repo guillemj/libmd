@@ -42,13 +42,13 @@
 .Ft void
 .Fn SHA256Init "SHA2_CTX *context"
 .Ft void
-.Fn SHA256Update "SHA2_CTX *context" "const u_int8_t *data" "size_t len"
+.Fn SHA256Update "SHA2_CTX *context" "const uint8_t *data" "size_t len"
 .Ft void
 .Fn SHA256Pad "SHA2_CTX *context"
 .Ft void
-.Fn SHA256Final "u_int8_t digest[SHA256_DIGEST_LENGTH]" "SHA2_CTX *context"
+.Fn SHA256Final "uint8_t digest[SHA256_DIGEST_LENGTH]" "SHA2_CTX *context"
 .Ft void
-.Fn SHA256Transform "u_int32_t state[8]" "const u_int8_t buffer[SHA256_BLOCK_LENGTH]"
+.Fn SHA256Transform "uint32_t state[8]" "const uint8_t buffer[SHA256_BLOCK_LENGTH]"
 .Ft "char *"
 .Fn SHA256End "SHA2_CTX *context" "char *buf"
 .Ft "char *"
@@ -56,17 +56,17 @@
 .Ft "char *"
 .Fn SHA256FileChunk "const char *filename" "char *buf" "off_t offset" "off_t length"
 .Ft "char *"
-.Fn SHA256Data "u_int8_t *data" "size_t len" "char *buf"
+.Fn SHA256Data "uint8_t *data" "size_t len" "char *buf"
 .Ft void
 .Fn SHA384Init "SHA2_CTX *context"
 .Ft void
-.Fn SHA384Update "SHA2_CTX *context" "const u_int8_t *data" "size_t len"
+.Fn SHA384Update "SHA2_CTX *context" "const uint8_t *data" "size_t len"
 .Ft void
 .Fn SHA384Pad "SHA2_CTX *context"
 .Ft void
-.Fn SHA384Final "u_int8_t digest[SHA384_DIGEST_LENGTH]" "SHA2_CTX *context"
+.Fn SHA384Final "uint8_t digest[SHA384_DIGEST_LENGTH]" "SHA2_CTX *context"
 .Ft void
-.Fn SHA384Transform "u_int64_t state[8]" "const u_int8_t buffer[SHA384_BLOCK_LENGTH]"
+.Fn SHA384Transform "uint64_t state[8]" "const uint8_t buffer[SHA384_BLOCK_LENGTH]"
 .Ft "char *"
 .Fn SHA384End "SHA2_CTX *context" "char *buf"
 .Ft "char *"
@@ -74,17 +74,17 @@
 .Ft "char *"
 .Fn SHA384FileChunk "char *filename" "char *buf" "off_t offset" "off_t length"
 .Ft "char *"
-.Fn SHA384Data "u_int8_t *data" "size_t len" "char *buf"
+.Fn SHA384Data "uint8_t *data" "size_t len" "char *buf"
 .Ft void
 .Fn SHA512Init "SHA2_CTX *context"
 .Ft void
-.Fn SHA512Update "SHA2_CTX *context" "const u_int8_t *data" "size_t len"
+.Fn SHA512Update "SHA2_CTX *context" "const uint8_t *data" "size_t len"
 .Ft void
 .Fn SHA512Pad "SHA2_CTX *context"
 .Ft void
-.Fn SHA512Final "u_int8_t digest[SHA512_DIGEST_LENGTH]" "SHA2_CTX *context"
+.Fn SHA512Final "uint8_t digest[SHA512_DIGEST_LENGTH]" "SHA2_CTX *context"
 .Ft void
-.Fn SHA512Transform "u_int64_t state[8]" "const u_int8_t buffer[SHA512_BLOCK_LENGTH]"
+.Fn SHA512Transform "uint64_t state[8]" "const uint8_t buffer[SHA512_BLOCK_LENGTH]"
 .Ft "char *"
 .Fn SHA512End "SHA2_CTX *context" "char *buf"
 .Ft "char *"
@@ -92,7 +92,7 @@
 .Ft "char *"
 .Fn SHA512FileChunk "char *filename" "char *buf" "off_t offset" "off_t length"
 .Ft "char *"
-.Fn SHA512Data "u_int8_t *data" "size_t len" "char *buf"
+.Fn SHA512Data "uint8_t *data" "size_t len" "char *buf"
 .Sh DESCRIPTION
 The SHA2 functions implement the NIST Secure Hash Standard,
 FIPS PUB 180-2.
@@ -226,14 +226,14 @@ which is
 .Dq 0xba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad .
 .Bd -literal -offset indent
 SHA2_CTX ctx;
-u_int8_t results[SHA256_DIGEST_LENGTH];
+uint8_t results[SHA256_DIGEST_LENGTH];
 char *buf;
 int n;
 
 buf = "abc";
 n = strlen(buf);
 SHA256Init(&ctx);
-SHA256Update(&ctx, (u_int8_t *)buf, n);
+SHA256Update(&ctx, (uint8_t *)buf, n);
 SHA256Final(results, &ctx);
 
 /* Print the digest as one long hex value */
@@ -245,7 +245,7 @@ putchar('\en');
 .Pp
 Alternately, the helper functions could be used in the following way:
 .Bd -literal -offset indent
-u_int8_t output[SHA256_DIGEST_STRING_LENGTH];
+uint8_t output[SHA256_DIGEST_STRING_LENGTH];
 char *buf = "abc";
 
 printf("0x%s\en", SHA256Data(buf, strlen(buf), output));

@@ -26,7 +26,7 @@ char *
 HASHEnd(HASH_CTX *ctx, char *buf)
 {
 	int i;
-	u_int8_t digest[HASH_DIGEST_LENGTH];
+	uint8_t digest[HASH_DIGEST_LENGTH];
 	static const char hex[] = "0123456789abcdef";
 
 	if (buf == NULL && (buf = malloc(HASH_DIGEST_STRING_LENGTH)) == NULL)
@@ -46,7 +46,7 @@ char *
 HASHFileChunk(const char *filename, char *buf, off_t off, off_t len)
 {
 	struct stat sb;
-	u_char buffer[BUFSIZ];
+	uint8_t buffer[BUFSIZ];
 	HASH_CTX ctx;
 	int fd, save_errno;
 	ssize_t nr;
@@ -86,7 +86,7 @@ HASHFile(const char *filename, char *buf)
 }
 
 char *
-HASHData(const u_char *data, size_t len, char *buf)
+HASHData(const uint8_t *data, size_t len, char *buf)
 {
 	HASH_CTX ctx;
 

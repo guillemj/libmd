@@ -16,28 +16,30 @@
 #ifndef _MD4_H_
 #define _MD4_H_
 
+#include <stdint.h>
+
 #define	MD4_BLOCK_LENGTH		64
 #define	MD4_DIGEST_LENGTH		16
 #define	MD4_DIGEST_STRING_LENGTH	(MD4_DIGEST_LENGTH * 2 + 1)
 
 typedef struct MD4Context {
-	u_int32_t state[4];			/* state */
-	u_int64_t count;			/* number of bits, mod 2^64 */
-	u_int8_t buffer[MD4_BLOCK_LENGTH];	/* input buffer */
+	uint32_t state[4];			/* state */
+	uint64_t count;				/* number of bits, mod 2^64 */
+	uint8_t buffer[MD4_BLOCK_LENGTH];	/* input buffer */
 } MD4_CTX;
 
 #include <sys/cdefs.h>
 
 __BEGIN_DECLS
 void	 MD4Init(MD4_CTX *);
-void	 MD4Update(MD4_CTX *, const u_int8_t *, size_t);
+void	 MD4Update(MD4_CTX *, const uint8_t *, size_t);
 void	 MD4Pad(MD4_CTX *);
-void	 MD4Final(u_int8_t [MD4_DIGEST_LENGTH], MD4_CTX *);
-void	 MD4Transform(u_int32_t [4], const u_int8_t [MD4_BLOCK_LENGTH]);
+void	 MD4Final(uint8_t [MD4_DIGEST_LENGTH], MD4_CTX *);
+void	 MD4Transform(uint32_t [4], const uint8_t [MD4_BLOCK_LENGTH]);
 char	*MD4End(MD4_CTX *, char *);
 char	*MD4File(const char *, char *);
 char	*MD4FileChunk(const char *, char *, off_t, off_t);
-char	*MD4Data(const u_int8_t *, size_t, char *);
+char	*MD4Data(const uint8_t *, size_t, char *);
 __END_DECLS
 
 #endif /* _MD4_H_ */
