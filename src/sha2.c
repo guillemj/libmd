@@ -39,6 +39,12 @@
 #include <string.h>
 #include <sha2.h>
 
+#define _C_LABEL_STRING(x)	x
+
+#define	__weak_alias(alias,sym)						\
+	__asm(".weak " _C_LABEL_STRING(#alias) "\n"			\
+		_C_LABEL_STRING(#alias) " = " _C_LABEL_STRING(#sym));
+
 /*
  * UNROLLED TRANSFORM LOOP NOTE:
  * You can define SHA2_UNROLL_TRANSFORM to use the unrolled transform
