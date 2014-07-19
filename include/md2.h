@@ -6,6 +6,8 @@
 #include <sys/cdefs.h>
 #include <sys/types.h>
 
+#include <stdint.h>
+
 #define	MD2_DIGEST_LENGTH		16
 #define	MD2_DIGEST_STRING_LENGTH	33
 
