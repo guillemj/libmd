@@ -40,6 +40,8 @@ __RCSID("$NetBSD: md2.c,v 1.7 2012/06/25 22:32:44 abs Exp $");
 #include <md2.h>
 #include <string.h>
 
+#define _DIAGASSERT(x)
+
 #if !HAVE_MD2_H
 
 /* cut-n-pasted from rfc1319 */
