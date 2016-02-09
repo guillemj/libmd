@@ -25,6 +25,9 @@
 #ifndef  _RMD160_H
 #define  _RMD160_H
 
+#include <sys/cdefs.h>
+#include <sys/types.h>
+
 #include <stdint.h>
 
 #define	RMD160_BLOCK_LENGTH		64
@@ -37,8 +40,6 @@ typedef struct RMD160Context {
 	uint64_t count;				/* number of bits, mod 2^64 */
 	uint8_t buffer[RMD160_BLOCK_LENGTH];	/* input buffer */
 } RMD160_CTX;
-
-#include <sys/cdefs.h>
 
 __BEGIN_DECLS
 void	 RMD160Init(RMD160_CTX *);

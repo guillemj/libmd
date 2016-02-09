@@ -9,6 +9,9 @@
 #ifndef _SHA1_H
 #define _SHA1_H
 
+#include <sys/cdefs.h>
+#include <sys/types.h>
+
 #include <stdint.h>
 
 #define	SHA1_BLOCK_LENGTH		64
@@ -20,8 +23,6 @@ typedef struct {
     uint64_t count;
     uint8_t buffer[SHA1_BLOCK_LENGTH];
 } SHA1_CTX;
-
-#include <sys/cdefs.h>
 
 __BEGIN_DECLS
 void SHA1Init(SHA1_CTX *);

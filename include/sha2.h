@@ -37,6 +37,9 @@
 #ifndef _SHA2_H
 #define _SHA2_H
 
+#include <sys/cdefs.h>
+#include <sys/types.h>
+
 #include <stdint.h>
 
 /*** SHA-256/384/512 Various Length Definitions ***********************/
@@ -60,8 +63,6 @@ typedef struct _SHA2_CTX {
 	uint64_t	bitcount[2];
 	uint8_t		buffer[SHA512_BLOCK_LENGTH];
 } SHA2_CTX;
-
-#include <sys/cdefs.h>
 
 __BEGIN_DECLS
 void SHA256Init(SHA2_CTX *);

@@ -16,6 +16,9 @@
 #ifndef _MD4_H_
 #define _MD4_H_
 
+#include <sys/cdefs.h>
+#include <sys/types.h>
+
 #include <stdint.h>
 
 #define	MD4_BLOCK_LENGTH		64
@@ -27,8 +30,6 @@ typedef struct MD4Context {
 	uint64_t count;				/* number of bits, mod 2^64 */
 	uint8_t buffer[MD4_BLOCK_LENGTH];	/* input buffer */
 } MD4_CTX;
-
-#include <sys/cdefs.h>
 
 __BEGIN_DECLS
 void	 MD4Init(MD4_CTX *);

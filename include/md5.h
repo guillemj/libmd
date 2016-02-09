@@ -15,6 +15,9 @@
 #ifndef _MD5_H_
 #define _MD5_H_
 
+#include <sys/cdefs.h>
+#include <sys/types.h>
+
 #include <stdint.h>
 
 #define	MD5_BLOCK_LENGTH		64
@@ -26,8 +29,6 @@ typedef struct MD5Context {
 	uint64_t count;				/* number of bits, mod 2^64 */
 	uint8_t buffer[MD5_BLOCK_LENGTH];	/* input buffer */
 } MD5_CTX;
-
-#include <sys/cdefs.h>
 
 __BEGIN_DECLS
 void	 MD5Init(MD5_CTX *);
