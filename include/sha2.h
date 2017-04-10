@@ -37,7 +37,6 @@
 #ifndef _SHA2_H
 #define _SHA2_H
 
-#include <sys/cdefs.h>
 #include <sys/types.h>
 
 #include <stdint.h>
@@ -64,7 +63,10 @@ typedef struct _SHA2_CTX {
 	uint8_t		buffer[SHA512_BLOCK_LENGTH];
 } SHA2_CTX;
 
-__BEGIN_DECLS
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void SHA256Init(SHA2_CTX *);
 void SHA256Transform(uint32_t state[8], const uint8_t [SHA256_BLOCK_LENGTH]);
 void SHA256Update(SHA2_CTX *, const uint8_t *, size_t);
@@ -94,6 +96,9 @@ char *SHA512End(SHA2_CTX *, char *);
 char *SHA512File(const char *, char *);
 char *SHA512FileChunk(const char *, char *, off_t, off_t);
 char *SHA512Data(const uint8_t *, size_t, char *);
-__END_DECLS
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _SHA2_H */

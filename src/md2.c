@@ -29,7 +29,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <sys/cdefs.h>
 #if defined(LIBC_SCCS) && !defined(lint)
 __RCSID("$NetBSD: md2.c,v 1.7 2012/06/25 22:32:44 abs Exp $");
 #endif /* LIBC_SCCS and not lint */
@@ -96,7 +95,7 @@ static const unsigned char *pad[] = {
  * XXX This should not be visible, but due to an accident, it is
  * XXX so it must remain so.
  */
-/*static*/ void MD2Transform __P((MD2_CTX *));
+/*static*/ void MD2Transform(MD2_CTX *);
 
 #ifdef __weak_alias
 __weak_alias(MD2Init,_MD2Init)

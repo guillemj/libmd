@@ -15,7 +15,6 @@
 #ifndef _MD5_H_
 #define _MD5_H_
 
-#include <sys/cdefs.h>
 #include <sys/types.h>
 
 #include <stdint.h>
@@ -30,7 +29,10 @@ typedef struct MD5Context {
 	uint8_t buffer[MD5_BLOCK_LENGTH];	/* input buffer */
 } MD5_CTX;
 
-__BEGIN_DECLS
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void	 MD5Init(MD5_CTX *);
 void	 MD5Update(MD5_CTX *, const uint8_t *, size_t);
 void	 MD5Pad(MD5_CTX *);
@@ -40,6 +42,9 @@ char	*MD5End(MD5_CTX *, char *);
 char	*MD5File(const char *, char *);
 char	*MD5FileChunk(const char *, char *, off_t, off_t);
 char	*MD5Data(const uint8_t *, size_t, char *);
-__END_DECLS
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _MD5_H_ */

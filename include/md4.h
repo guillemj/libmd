@@ -16,7 +16,6 @@
 #ifndef _MD4_H_
 #define _MD4_H_
 
-#include <sys/cdefs.h>
 #include <sys/types.h>
 
 #include <stdint.h>
@@ -31,7 +30,10 @@ typedef struct MD4Context {
 	uint8_t buffer[MD4_BLOCK_LENGTH];	/* input buffer */
 } MD4_CTX;
 
-__BEGIN_DECLS
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void	 MD4Init(MD4_CTX *);
 void	 MD4Update(MD4_CTX *, const uint8_t *, size_t);
 void	 MD4Pad(MD4_CTX *);
@@ -41,6 +43,9 @@ char	*MD4End(MD4_CTX *, char *);
 char	*MD4File(const char *, char *);
 char	*MD4FileChunk(const char *, char *, off_t, off_t);
 char	*MD4Data(const uint8_t *, size_t, char *);
-__END_DECLS
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _MD4_H_ */

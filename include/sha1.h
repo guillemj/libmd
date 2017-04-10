@@ -9,7 +9,6 @@
 #ifndef _SHA1_H
 #define _SHA1_H
 
-#include <sys/cdefs.h>
 #include <sys/types.h>
 
 #include <stdint.h>
@@ -24,7 +23,10 @@ typedef struct {
     uint8_t buffer[SHA1_BLOCK_LENGTH];
 } SHA1_CTX;
 
-__BEGIN_DECLS
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void SHA1Init(SHA1_CTX *);
 void SHA1Pad(SHA1_CTX *);
 void SHA1Transform(uint32_t [5], const uint8_t [SHA1_BLOCK_LENGTH]);
@@ -34,7 +36,10 @@ char *SHA1End(SHA1_CTX *, char *);
 char *SHA1File(const char *, char *);
 char *SHA1FileChunk(const char *, char *, off_t, off_t);
 char *SHA1Data(const uint8_t *, size_t, char *);
-__END_DECLS
+
+#ifdef __cplusplus
+}
+#endif
 
 #define HTONDIGEST(x) do {                                              \
         x[0] = htonl(x[0]);                                             \

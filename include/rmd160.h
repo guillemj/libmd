@@ -25,7 +25,6 @@
 #ifndef  _RMD160_H
 #define  _RMD160_H
 
-#include <sys/cdefs.h>
 #include <sys/types.h>
 
 #include <stdint.h>
@@ -41,7 +40,10 @@ typedef struct RMD160Context {
 	uint8_t buffer[RMD160_BLOCK_LENGTH];	/* input buffer */
 } RMD160_CTX;
 
-__BEGIN_DECLS
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void	 RMD160Init(RMD160_CTX *);
 void	 RMD160Transform(uint32_t [5], const uint8_t [RMD160_BLOCK_LENGTH]);
 void	 RMD160Update(RMD160_CTX *, const uint8_t *, size_t);
@@ -51,6 +53,9 @@ char	*RMD160End(RMD160_CTX *, char *);
 char	*RMD160File(const char *, char *);
 char	*RMD160FileChunk(const char *, char *, off_t, off_t);
 char	*RMD160Data(const uint8_t *, size_t, char *);
-__END_DECLS
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  /* _RMD160_H */
