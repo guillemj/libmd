@@ -31,9 +31,10 @@ AC_PROG_CC
 # Checks for libraries.
 
 # Checks for header files.
-AC_CHECK_HEADERS([sys/param.h sys/endian.h])
+AC_CHECK_HEADERS([sys/param.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
+AC_C_BIGENDIAN
 AC_TYPE_OFF_T
 AC_TYPE_SIZE_T
 AC_TYPE_SSIZE_T

@@ -158,7 +158,7 @@ MD4Transform(uint32_t state[4], const uint8_t block[MD4_BLOCK_LENGTH])
 {
 	uint32_t a, b, c, d, in[MD4_BLOCK_LENGTH / 4];
 
-#if BYTE_ORDER == LITTLE_ENDIAN
+#ifndef WORDS_BIGENDIAN
 	memcpy(in, block, sizeof(in));
 #else
 	for (a = 0; a < MD4_BLOCK_LENGTH / 4; a++) {

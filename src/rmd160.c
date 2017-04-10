@@ -31,11 +31,6 @@
 
 #include <string.h>
 #include <sys/types.h>
-#ifdef HAVE_SYS_ENDIAN_H
-#include <sys/endian.h>
-#else
-#include <endian.h>
-#endif
 #include <rmd160.h>
 
 #define PUT_64BIT_LE(cp, value) do {                                    \
@@ -170,7 +165,7 @@ RMD160Transform(uint32_t state[5], const uint8_t block[RMD160_BLOCK_LENGTH])
 {
 	uint32_t a, b, c, d, e, aa, bb, cc, dd, ee, t, x[16];
 
-#if BYTE_ORDER == LITTLE_ENDIAN
+#ifndef WORDS_BIGENDIAN
 	memcpy(x, block, RMD160_BLOCK_LENGTH);
 #else
 	int i;
