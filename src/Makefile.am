@@ -23,6 +23,7 @@ libmd_la_helper_sources = \
 	$(nil)
 
 libmd_la_LDFLAGS = \
+	-no-undefined \
 	-Wl,--version-script=$(srcdir)/libmd.map \
 	-version-number $(LIBMD_ABI)
 libmd_la_DEPENDENCIES = \
