@@ -25,8 +25,11 @@ libmd_la_helper_sources = \
 
 libmd_la_LDFLAGS = \
 	-no-undefined \
-	-Wl,--version-script=$(srcdir)/libmd.map \
 	-version-number $(LIBMD_ABI)
+if HAVE_LINKER_VERSION_SCRIPT
+libmd_la_LDFLAGS += \
+	-Wl,--version-script=$(srcdir)/libmd.map
+endif
 libmd_la_DEPENDENCIES = \
 	libmd.map \
 	helper.c \

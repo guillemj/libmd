@@ -1,5 +1,4 @@
 #!/bin/sh
 
-mkdir -p m4
 autoreconf -f -i
 rm -rf autom4te.cache

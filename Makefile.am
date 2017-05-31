@@ -7,6 +7,7 @@ ACLOCAL_AMFLAGS = -I m4
 EXTRA_DIST = \
 	autogen \
 	get-version \
+	m4/libmd-linker.m4 \
 	$(nil)
 
 dist-hook:
