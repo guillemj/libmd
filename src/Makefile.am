@@ -33,7 +33,7 @@ else
 libmd_la_LDFLAGS += \
 	-export-symbols $(srcdir)/libmd.sym
 endif
-libmd_la_DEPENDENCIES = \
+EXTRA_libmd_la_DEPENDENCIES = \
 	libmd.map \
 	libmd.sym \
 	helper.c \
