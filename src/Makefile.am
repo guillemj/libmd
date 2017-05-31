@@ -29,9 +29,13 @@ libmd_la_LDFLAGS = \
 if HAVE_LINKER_VERSION_SCRIPT
 libmd_la_LDFLAGS += \
 	-Wl,--version-script=$(srcdir)/libmd.map
+else
+libmd_la_LDFLAGS += \
+	-export-symbols $(srcdir)/libmd.sym
 endif
 libmd_la_DEPENDENCIES = \
 	libmd.map \
+	libmd.sym \
 	helper.c \
 	$(nil)
 libmd_la_SOURCES = \
@@ -57,6 +61,15 @@ EXTRA_DIST = \
 CLEANFILES = \
 	$(libmd_la_helper_sources) \
 	$(nil)
+
+DISTCLEANFILES = \
+	libmd.sym \
+	$(nil)
+
+# Generate a simple libtool symbol export list to be used as a fallback if
+# there is no version script support.
+libmd.sym: libmd.map
+	$(AM_V_GEN) sed -ne 's/^[[:space:]]\+\([A-Za-z0-9]\+\);/\1/p' $< > $@
 
 md2hl.c: helper.c
 	$(AM_V_GEN) sed -e 's/hashinc/md2.h/g' -e 's/HASH/MD2/g' $< > $@

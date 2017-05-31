@@ -1,4 +1,5 @@
 ChangeLog
+*.sym
 *.a
 *.o
 *.la
