@@ -1,7 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
 AM_CPPFLAGS = \
-	-include $(top_builddir)/config.h \
 	-I$(top_builddir) \
 	-I$(top_srcdir)/include \
 	$(nil)

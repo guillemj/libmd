@@ -1,8 +1,9 @@
 ## Process this file with automake to produce Makefile.in
 
 AM_CPPFLAGS = \
+	-I$(top_builddir) \
 	-I$(top_srcdir)/include \
-	-include $(top_builddir)/config.h
+	$(nil)
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = \

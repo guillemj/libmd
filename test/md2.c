@@ -24,6 +24,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <config.h>
+
 #include <assert.h>
 #include <md2.h>
 #include <string.h>

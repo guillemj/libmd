@@ -24,6 +24,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <config.h>
+
 #include <assert.h>
 #include <sha1.h>
 #include <string.h>

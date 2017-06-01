@@ -26,6 +26,9 @@
  * RSA Laboratories, CryptoBytes, Volume 3, Number 2, Autumn 1997,
  * ftp://ftp.rsasecurity.com/pub/cryptobytes/crypto3n2.pdf
  */
+
+#include <config.h>
+
 #include <string.h>
 #include <sys/types.h>
 #ifdef HAVE_SYS_ENDIAN_H
