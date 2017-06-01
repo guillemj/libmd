@@ -11,7 +11,6 @@
 
 #include <config.h>
 
-#include <sys/param.h>
 #include <sys/stat.h>
 
 #include <errno.h>
@@ -22,6 +21,10 @@
 #include <unistd.h>
 
 #include <hashinc>
+
+#ifndef MIN
+# define MIN(x, y) (((x) < (y)) ? (x) : (y))
+#endif
 
 /* ARGSUSED */
 char *
