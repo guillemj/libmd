@@ -69,7 +69,7 @@ DISTCLEANFILES = \
 # Generate a simple libtool symbol export list to be used as a fallback if
 # there is no version script support.
 libmd.sym: libmd.map
-	$(AM_V_GEN) sed -ne 's/^[[:space:]]\+\([A-Za-z0-9]\+\);/\1/p' $< > $@
+	$(AM_V_GEN) sed -ne 's/^[[:space:]]\{1,\}\([A-Za-z0-9]\{1,\}\);/\1/p' $< > $@
 
 md2hl.c: helper.c
 	$(AM_V_GEN) sed -e 's/hashinc/md2.h/g' -e 's/HASH/MD2/g' $< > $@
