@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Guillem Jover <guillem@hadrons.org>
+ * Copyright © 2018 Guillem Jover <guillem@hadrons.org>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -27,19 +27,51 @@
 #include <config.h>
 
 #include <assert.h>
-#include <md5.h>
 #include <string.h>
 
-#include "test.h"
-
-DEF_TEST_DIGEST(MD5, MD5)
-
-int
-main()
+static int
+hexchar2bin(int c)
 {
-	test_MD5("d41d8cd98f00b204e9800998ecf8427e", "");
-	test_MD5("900150983cd24fb0d6963f7d28e17f72", "abc");
-	test_MD5("827ccb0eea8a706c4c34a16891f84e7b", "12345");
+	if (c >= '0' && c <= '9')
+		return c - '0';
+	else if (c >= 'a' && c <= 'f')
+		return c - 'a' + 10;
+	else if (c >= 'A' && c <= 'F')
+		return c - 'A' + 10;
+	assert(!"invalid hexadecimal input");
+}
 
-	return 0;
+static void
+hex2bin(uint8_t *bin, const char *str, size_t bin_len)
+{
+	int i;
+
+	for (i = 0; i < bin_len; i++)
+		bin[i] = hexchar2bin(str[i * 2]) << 4 |
+			 hexchar2bin(str[i * 2 + 1]);
+}
+
+#define DEF_TEST_DIGEST(name, type) \
+void \
+test_##name(const char *hash_str_ref, const char *data) \
+{ \
+	uint8_t hash_bin_ref[name##_DIGEST_LENGTH]; \
+	uint8_t hash_bin_got[name##_DIGEST_LENGTH]; \
+	char hash_str_got[name##_DIGEST_STRING_LENGTH]; \
+	type##_CTX ctx; \
+\
+	hex2bin(hash_bin_ref, hash_str_ref, name##_DIGEST_LENGTH); \
+\
+	name##Data(data, strlen(data), hash_str_got); \
+	assert(strcmp(hash_str_ref, hash_str_got) == 0); \
+\
+	name##Init(&ctx); \
+	name##Update(&ctx, data, strlen(data)); \
+	name##End(&ctx, hash_str_got); \
+	assert(strcmp(hash_str_ref, hash_str_got) == 0); \
+\
+	name##Init(&ctx); \
+	name##Update(&ctx, data, strlen(data)); \
+	name##Final(hash_bin_got, &ctx); \
+	assert(memcmp(hash_bin_ref, hash_bin_got, sizeof(hash_bin_ref)) == 0); \
 }

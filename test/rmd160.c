@@ -26,24 +26,18 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <rmd160.h>
-#include <string.h>
 
-void
-test_rmd160(const char *digest, const char *string)
-{
-	char result[RMD160_DIGEST_STRING_LENGTH];
+#include "test.h"
 
-	assert(strcmp(digest, RMD160Data(string, strlen(string), result)) == 0);
-}
+DEF_TEST_DIGEST(RMD160, RMD160)
 
 int
 main()
 {
-	test_rmd160("9c1185a5c5e9fc54612808977ee8f548b2258d31", "");
-	test_rmd160("8eb208f7e05d987a9b044a8e98c6b087f15a0bfc", "abc");
-	test_rmd160("e9cbd2ea8015a084ce9cf83a3c65b51f8fa10a39", "12345");
+	test_RMD160("9c1185a5c5e9fc54612808977ee8f548b2258d31", "");
+	test_RMD160("8eb208f7e05d987a9b044a8e98c6b087f15a0bfc", "abc");
+	test_RMD160("e9cbd2ea8015a084ce9cf83a3c65b51f8fa10a39", "12345");
 
 	return 0;
 }

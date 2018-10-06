@@ -26,24 +26,18 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <sha1.h>
-#include <string.h>
 
-void
-test_sha1(const char *digest, const char *string)
-{
-	char result[SHA1_DIGEST_STRING_LENGTH];
+#include "test.h"
 
-	assert(strcmp(digest, SHA1Data(string, strlen(string), result)) == 0);
-}
+DEF_TEST_DIGEST(SHA1, SHA1)
 
 int
 main()
 {
-	test_sha1("da39a3ee5e6b4b0d3255bfef95601890afd80709", "");
-	test_sha1("a9993e364706816aba3e25717850c26c9cd0d89d", "abc");
-	test_sha1("8cb2237d0679ca88db6464eac60da96345513964", "12345");
+	test_SHA1("da39a3ee5e6b4b0d3255bfef95601890afd80709", "");
+	test_SHA1("a9993e364706816aba3e25717850c26c9cd0d89d", "abc");
+	test_SHA1("8cb2237d0679ca88db6464eac60da96345513964", "12345");
 
 	return 0;
 }

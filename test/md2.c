@@ -26,24 +26,18 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <md2.h>
-#include <string.h>
 
-void
-test_md2(const char *digest, const char *string)
-{
-	char result[MD2_DIGEST_STRING_LENGTH];
+#include "test.h"
 
-	assert(strcmp(digest, MD2Data(string, strlen(string), result)) == 0);
-}
+DEF_TEST_DIGEST(MD2, MD2)
 
 int
 main()
 {
-	test_md2("8350e5a3e24c153df2275c9f80692773", "");
-	test_md2("da853b0d3f88d99b30283a69e6ded6bb", "abc");
-	test_md2("2fe3cb9e21922819e79a2781af74e36d", "12345");
+	test_MD2("8350e5a3e24c153df2275c9f80692773", "");
+	test_MD2("da853b0d3f88d99b30283a69e6ded6bb", "abc");
+	test_MD2("2fe3cb9e21922819e79a2781af74e36d", "12345");
 
 	return 0;
 }

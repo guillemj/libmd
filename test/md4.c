@@ -26,24 +26,18 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <md4.h>
-#include <string.h>
 
-void
-test_md4(const char *digest, const char *string)
-{
-	char result[MD4_DIGEST_STRING_LENGTH];
+#include "test.h"
 
-	assert(strcmp(digest, MD4Data(string, strlen(string), result)) == 0);
-}
+DEF_TEST_DIGEST(MD4, MD4)
 
 int
 main()
 {
-	test_md4("31d6cfe0d16ae931b73c59d7e0c089c0", "");
-	test_md4("a448017aaf21d8525fc10ae87aa6729d", "abc");
-	test_md4("23580e2a459f7ea40f9efa148b63cafb", "12345");
+	test_MD4("31d6cfe0d16ae931b73c59d7e0c089c0", "");
+	test_MD4("a448017aaf21d8525fc10ae87aa6729d", "abc");
+	test_MD4("23580e2a459f7ea40f9efa148b63cafb", "12345");
 
 	return 0;
 }

@@ -7,6 +7,10 @@ AM_CPPFLAGS = \
 
 LDADD = $(top_builddir)/src/libmd.la
 
+check_HEADERS = \
+	test.h \
+	$(nil)
+
 check_PROGRAMS = \
 	md2 \
 	md4 \
