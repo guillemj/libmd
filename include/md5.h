@@ -47,4 +47,24 @@ char	*MD5Data(const uint8_t *, size_t, char *);
 }
 #endif
 
+/* Avoid polluting the namespace. Even though this makes this usage
+ * implementation-specific, defining it unconditionally should not be
+ * a problem, and better than possibly breaking unexpecting code. */
+#ifdef LIBMD_MD5_ALADDIN
+
+/*
+ * Interface compatibility with Aladdin Enterprises independent
+ * implementation from RFC 1321.
+ */
+
+typedef uint8_t md5_byte_t;
+typedef uint32_t md5_word_t;
+typedef MD5_CTX md5_state_t;
+
+#define md5_init(pms) MD5Init(pms)
+#define md5_append(pms, data, nbytes) MD5Update(pms, data, nbytes)
+#define md5_finish(pms, digest) MD5Final(digest, pms)
+
+#endif /* LIBMD_MD5_ALADDIN */
+
 #endif /* _MD5_H_ */

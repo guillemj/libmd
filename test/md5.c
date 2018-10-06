@@ -24,6 +24,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#define LIBMD_MD5_ALADDIN 1
+
 #include <config.h>
 
 #include <assert.h>
@@ -34,12 +36,34 @@
 
 DEF_TEST_DIGEST(MD5, MD5)
 
+void
+test_MD5_aladdin(const char *hash_str_ref, const char *data)
+{
+	uint8_t hash_bin_ref[MD5_DIGEST_LENGTH];
+	uint8_t hash_bin_got[MD5_DIGEST_LENGTH];
+	md5_state_t pms;
+
+	hex2bin(hash_bin_ref, hash_str_ref, MD5_DIGEST_LENGTH);
+
+	md5_init(&pms);
+	md5_append(&pms, data, strlen(data));
+	md5_finish(&pms, hash_bin_got);
+	assert(memcmp(hash_bin_ref, hash_bin_got, MD5_DIGEST_LENGTH) == 0);
+}
+
+void
+test_MD5_all(const char *hash_str_ref, const char *data)
+{
+	test_MD5(hash_str_ref, data);
+	test_MD5_aladdin(hash_str_ref, data);
+}
+
 int
 main()
 {
-	test_MD5("d41d8cd98f00b204e9800998ecf8427e", "");
-	test_MD5("900150983cd24fb0d6963f7d28e17f72", "abc");
-	test_MD5("827ccb0eea8a706c4c34a16891f84e7b", "12345");
+	test_MD5_all("d41d8cd98f00b204e9800998ecf8427e", "");
+	test_MD5_all("900150983cd24fb0d6963f7d28e17f72", "abc");
+	test_MD5_all("827ccb0eea8a706c4c34a16891f84e7b", "12345");
 
 	return 0;
 }
