@@ -46,8 +46,8 @@ typedef SHA2_CTX SHA384_CTX;
 #define SHA512_Update		SHA512Update
 #define SHA512_Final		SHA512Final
 #define SHA512_End		SHA512End
-#define SHA512_Data		SHA512File
-#define SHA512_File		SHA512FileChunk
-#define SHA512_FileChunk	SHA512Data
+#define SHA512_Data		SHA512Data
+#define SHA512_File		SHA512File
+#define SHA512_FileChunk	SHA512FileChunk
 
 #endif
