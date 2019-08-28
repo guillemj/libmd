@@ -13,6 +13,7 @@ pkgconfig_DATA = \
 lib_LTLIBRARIES = libmd.la
 
 libmd_la_helper_sources = \
+	local-link.h \
 	md2hl.c \
 	md4hl.c \
 	md5hl.c \
