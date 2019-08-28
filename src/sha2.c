@@ -35,17 +35,12 @@
  */
 
 #include <config.h>
+#include "local-link.h"
 
 #include <sys/types.h>
 
 #include <string.h>
 #include <sha2.h>
-
-#define _C_LABEL_STRING(x)	x
-
-#define	__weak_alias(alias,sym)						\
-	__asm(".weak " _C_LABEL_STRING(#alias) "\n"			\
-		_C_LABEL_STRING(#alias) " = " _C_LABEL_STRING(#sym));
 
 /*
  * UNROLLED TRANSFORM LOOP NOTE:
@@ -820,9 +815,9 @@ SHA384Init(SHA2_CTX *context)
 	context->bitcount[0] = context->bitcount[1] = 0;
 }
 
-__weak_alias(SHA384Transform, SHA512Transform);
-__weak_alias(SHA384Update, SHA512Update);
-__weak_alias(SHA384Pad, SHA512Pad);
+libmd_alias(SHA384Transform, SHA512Transform);
+libmd_alias(SHA384Update, SHA512Update);
+libmd_alias(SHA384Pad, SHA512Pad);
 
 void
 SHA384Final(uint8_t digest[SHA384_DIGEST_LENGTH], SHA2_CTX *context)

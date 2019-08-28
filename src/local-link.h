@@ -31,6 +31,9 @@
 	static const char libmd_emit_link_warning_##symbol[] \
 		__attribute__((__used__,__section__(".gnu.warning." #symbol))) = msg;
 
+#define libmd_alias(alias, symbol) \
+	extern __typeof(symbol) alias __attribute__((__alias__(#symbol)))
+
 #ifdef __ELF__
 #define libmd_symver_default(alias, symbol, version) \
 	__asm__(".symver " #symbol "," #alias "@@" #version)
