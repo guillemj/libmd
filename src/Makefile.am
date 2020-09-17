@@ -23,6 +23,9 @@ libmd_la_helper_sources = \
 	sha512hl.c \
 	$(nil)
 
+EXTRA_libmd_la_DEPENDENCIES = \
+	libmd.map
+
 libmd_la_LDFLAGS = \
 	-no-undefined \
 	-version-number $(LIBMD_ABI)
@@ -32,10 +35,10 @@ libmd_la_LDFLAGS += \
 else
 libmd_la_LDFLAGS += \
 	-export-symbols $(srcdir)/libmd.sym
+EXTRA_libmd_la_DEPENDENCIES += \
+	libmd.sym
 endif
-EXTRA_libmd_la_DEPENDENCIES = \
-	libmd.map \
-	libmd.sym \
+EXTRA_libmd_la_DEPENDENCIES += \
 	helper.c \
 	$(nil)
 libmd_la_SOURCES = \
