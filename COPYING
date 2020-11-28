@@ -29,7 +29,6 @@ License: BSD-3-clause
 
 Files:
  include/sha2.h
- man/sha2.3
  src/sha2.c
 Copyright:
  Copyright © 2000-2001, Aaron D. Gifford
@@ -61,7 +60,6 @@ License: BSD-3-clause-Aaron-D-Gifford
 
 Files:
  include/rmd160.h
- man/rmd160.3
  src/rmd160.c
 Copyright:
  Copyright © 2001 Markus Friedl.  All rights reserved.
