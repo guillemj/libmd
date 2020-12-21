@@ -13,7 +13,6 @@ pkgconfig_DATA = \
 lib_LTLIBRARIES = libmd.la
 
 libmd_la_helper_sources = \
-	local-link.h \
 	md2hl.c \
 	md4hl.c \
 	md5hl.c \
@@ -40,6 +39,7 @@ EXTRA_libmd_la_DEPENDENCIES = \
 	helper.c \
 	$(nil)
 libmd_la_SOURCES = \
+	local-link.h \
 	md2.c \
 	md4.c \
 	md5.c \
