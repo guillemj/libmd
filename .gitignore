@@ -10,6 +10,7 @@ ChangeLog
 *hl.c
 *.log
 *.trs
+*.tar.*
 .deps/
 .libs/
 Makefile
