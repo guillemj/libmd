@@ -2,6 +2,7 @@
 
 AM_CPPFLAGS = \
 	-I$(top_builddir) \
+	-I$(srcdir) \
 	-I$(top_srcdir)/include \
 	$(nil)
 
@@ -34,7 +35,7 @@ libmd_la_LDFLAGS += \
 	-Wl,--version-script=$(srcdir)/libmd.map
 else
 libmd_la_LDFLAGS += \
-	-export-symbols $(srcdir)/libmd.sym
+	-export-symbols libmd.sym
 EXTRA_libmd_la_DEPENDENCIES += \
 	libmd.sym
 endif
