@@ -31,8 +31,18 @@
 	static const char libmd_emit_link_warning_##symbol[] \
 		__attribute__((__used__,__section__(".gnu.warning." #symbol))) = msg;
 
+/*
+ * On Windows we cannot use proper aliases, and using the /EXPORT linker flag
+ * is too cumbersome, as it does not work when static linking, and when
+ * dynamic linking it does not make the aliases visible within the DLL itself.
+ *
+ * Instead we use normal function wrapper in those cases, which are way more
+ * maintainable.
+ */
+#ifndef _MSC_VER
 #define libmd_alias(alias, symbol) \
 	extern __typeof(symbol) alias __attribute__((__alias__(#symbol)))
+#endif
 
 #ifdef __ELF__
 #define libmd_symver_default(alias, symbol, version) \
