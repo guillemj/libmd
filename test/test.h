@@ -52,7 +52,7 @@ hex2bin(uint8_t *bin, const char *str, size_t bin_len)
 }
 
 #define DEF_TEST_DIGEST(name, type) \
-void \
+static void \
 test_##name(const char *hash_str_ref, const char *data) \
 { \
 	uint8_t hash_bin_ref[name##_DIGEST_LENGTH]; \

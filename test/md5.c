@@ -36,7 +36,7 @@
 
 DEF_TEST_DIGEST(MD5, MD5)
 
-void
+static void
 test_MD5_aladdin(const char *hash_str_ref, const char *data)
 {
 	uint8_t hash_bin_ref[MD5_DIGEST_LENGTH];
@@ -46,12 +46,12 @@ test_MD5_aladdin(const char *hash_str_ref, const char *data)
 	hex2bin(hash_bin_ref, hash_str_ref, MD5_DIGEST_LENGTH);
 
 	md5_init(&pms);
-	md5_append(&pms, data, strlen(data));
+	md5_append(&pms, (const uint8_t *)data, strlen(data));
 	md5_finish(&pms, hash_bin_got);
 	assert(memcmp(hash_bin_ref, hash_bin_got, MD5_DIGEST_LENGTH) == 0);
 }
 
-void
+static void
 test_MD5_all(const char *hash_str_ref, const char *data)
 {
 	test_MD5(hash_str_ref, data);
