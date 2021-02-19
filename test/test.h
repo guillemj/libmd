@@ -62,16 +62,16 @@ test_##name(const char *hash_str_ref, const char *data) \
 \
 	hex2bin(hash_bin_ref, hash_str_ref, name##_DIGEST_LENGTH); \
 \
-	name##Data(data, strlen(data), hash_str_got); \
+	name##Data((const uint8_t *)data, strlen(data), hash_str_got); \
 	assert(strcmp(hash_str_ref, hash_str_got) == 0); \
 \
 	name##Init(&ctx); \
-	name##Update(&ctx, data, strlen(data)); \
+	name##Update(&ctx, (const uint8_t *)data, strlen(data)); \
 	name##End(&ctx, hash_str_got); \
 	assert(strcmp(hash_str_ref, hash_str_got) == 0); \
 \
 	name##Init(&ctx); \
-	name##Update(&ctx, data, strlen(data)); \
+	name##Update(&ctx, (const uint8_t *)data, strlen(data)); \
 	name##Final(hash_bin_got, &ctx); \
 	assert(memcmp(hash_bin_ref, hash_bin_got, sizeof(hash_bin_ref)) == 0); \
 }
