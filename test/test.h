@@ -44,7 +44,7 @@ hexchar2bin(int c)
 static void
 hex2bin(uint8_t *bin, const char *str, size_t bin_len)
 {
-	int i;
+	size_t i;
 
 	for (i = 0; i < bin_len; i++)
 		bin[i] = hexchar2bin(str[i * 2]) << 4 |
