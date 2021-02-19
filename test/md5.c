@@ -59,7 +59,7 @@ test_MD5_all(const char *hash_str_ref, const char *data)
 }
 
 int
-main()
+main(int argc, char *argv[])
 {
 	test_MD5_all("d41d8cd98f00b204e9800998ecf8427e", "");
 	test_MD5_all("900150983cd24fb0d6963f7d28e17f72", "abc");

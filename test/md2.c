@@ -33,7 +33,7 @@
 DEF_TEST_DIGEST(MD2, MD2)
 
 int
-main()
+main(int argc, char *argv[])
 {
 	test_MD2("8350e5a3e24c153df2275c9f80692773", "");
 	test_MD2("da853b0d3f88d99b30283a69e6ded6bb", "abc");

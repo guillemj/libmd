@@ -33,7 +33,7 @@
 DEF_TEST_DIGEST(RMD160, RMD160)
 
 int
-main()
+main(int argc, char *argv[])
 {
 	test_RMD160("9c1185a5c5e9fc54612808977ee8f548b2258d31", "");
 	test_RMD160("8eb208f7e05d987a9b044a8e98c6b087f15a0bfc", "abc");

@@ -33,7 +33,7 @@
 DEF_TEST_DIGEST(MD4, MD4)
 
 int
-main()
+main(int argc, char *argv[])
 {
 	test_MD4("31d6cfe0d16ae931b73c59d7e0c089c0", "");
 	test_MD4("a448017aaf21d8525fc10ae87aa6729d", "abc");

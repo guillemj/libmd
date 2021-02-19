@@ -33,7 +33,7 @@
 DEF_TEST_DIGEST(SHA1, SHA1)
 
 int
-main()
+main(int argc, char *argv[])
 {
 	test_SHA1("da39a3ee5e6b4b0d3255bfef95601890afd80709", "");
 	test_SHA1("a9993e364706816aba3e25717850c26c9cd0d89d", "abc");

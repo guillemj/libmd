@@ -35,7 +35,7 @@ DEF_TEST_DIGEST(SHA384, SHA2)
 DEF_TEST_DIGEST(SHA512, SHA2)
 
 int
-main()
+main(int argc, char *argv[])
 {
 	test_SHA256("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
 	            "");
