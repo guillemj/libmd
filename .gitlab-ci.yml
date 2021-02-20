@@ -8,7 +8,7 @@ before_script:
 unit-tests:
   stage: test
   script:
-    - ./autogen && ./configure
+    - ./autogen && ./configure --enable-sanitize
     - make check
 
 coverage:

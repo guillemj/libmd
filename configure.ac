@@ -70,6 +70,19 @@ AS_IF([test "$user_CFLAGS" = unset], [
   LIBMD_CHECK_COMPILER_FLAG([-Wwrite-strings])
 
   CFLAGS="$LIBMD_COMPILER_FLAGS $CFLAGS"
+
+  AC_ARG_ENABLE([sanitize],
+    [AS_HELP_STRING([--enable-sanitize], [enable compiler sanitizer support])],
+  [
+    LIBMD_COMPILER_FLAGS=''
+
+    LIBMD_CHECK_COMPILER_FLAG([-fsanitize=address])
+    LIBMD_CHECK_COMPILER_FLAG([-fsanitize=leak])
+    LIBMD_CHECK_COMPILER_FLAG([-fsanitize=undefined])
+
+    CFLAGS="$LIBMD_COMPILER_FLAGS $CFLAGS"
+    LDFLAGS="$LIBMD_COMPILER_FLAGS $LDFLAGS"
+  ])
 ])
 
 # Checks for libraries.
