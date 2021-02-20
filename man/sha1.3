@@ -63,11 +63,13 @@ The algorithm takes a
 message less than 2^64 bits as input and produces a 160-bit digest
 suitable for use as a digital signature.
 .Pp
-The SHA1 functions are considered to be more secure than the
+While the SHA1 functions are considered to be more secure than the
 .Xr md4 3
 and
 .Xr md5 3
-functions with which they share a similar interface.
+functions with which they share a similar interface, they are considered
+insecure as of 2005, and as of 2020 chosen-prefix attacks have become
+practical, thus these must not be used in cryptographic contexts.
 .Pp
 The
 .Fn SHA1Init
