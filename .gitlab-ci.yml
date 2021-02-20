@@ -1,0 +1,19 @@
+image: debian:buster
+
+before_script:
+  - apt-get update -qq
+  - apt-get install -qq -y --no-install-recommends
+    git gcc make autoconf automake libtool gcovr
+
+unit-tests:
+  stage: test
+  script:
+    - ./autogen && ./configure
+    - make check
+
+coverage:
+  stage: test
+  script:
+    - ./autogen && ./configure --disable-static
+    - make check CFLAGS="--coverage" LDFLAGS="--coverage"
+    - gcovr -s
