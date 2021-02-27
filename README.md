@@ -1,21 +1,17 @@
-libmd - Message Digest functions from BSD systems
+# libmd - Message Digest functions from BSD systems
 
 This library provides message digest functions found on BSD systems either
 on their libc or libmd libraries and lacking on others like GNU systems,
 thus making it easier to port projects with strong BSD origins, without
 needing to embed the same code over and over again on each project.
 
-
-Website
--------
+## Website
 
 The project website can be found at:
 
   <https://www.hadrons.org/software/libmd/>
 
-
-Mailing List
-------------
+## Mailing List
 
 The subscription interface and web archives can be found at:
 
@@ -25,14 +21,10 @@ The mail address is:
 
   libbsd@lists.freedesktop.org
 
-
-Releases
---------
+# Releases
 
   <https://archive.hadrons.org/software/libmd/>
 
-
-Source Repository
------------------
+# Source Repository
 
   <https://git.hadrons.org/cgit/libmd.git>
