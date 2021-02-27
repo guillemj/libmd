@@ -1,0 +1,67 @@
+name: SonarCloud
+
+on:
+  push:
+    branches:
+      - ci-sonarcloud
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          # Disable shallow clones for a better relevancy of analysis.
+          fetch-depth: 0
+
+      - name: Get build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -qq -y --no-install-recommends \
+            git ca-certificates curl unzip \
+            gcc make autoconf automake libtool
+
+      - name: Get SonarCloud build-wrapper
+        run: |
+          curl -o build-wrapper.zip \
+            https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+          unzip build-wrapper.zip
+
+      - name: Configure
+        run: |
+          ./autogen && ./configure
+
+      - name: Analyze
+        run: |
+          build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir build-wrapper-output/ make -j4
+
+      - name: Archive build-wrapper artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts
+          path: |
+            build-wrapper-dump.json
+            build-wrapper-output/
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: ${{ github.workspace }}
+          args: |
+            -Dsonar.organization=guillem
+            -Dsonar.projectKey=guillemj_libmd
+            -Dsonar.verbose=true
+            -Dsonar.sources=src/,include/
+            -Dsonar.tests=test/
+            -Dsonar.cfamily.build-wrapper-output=build-wrapper-output/
+            -Dsonar.cfamily.threads=2
