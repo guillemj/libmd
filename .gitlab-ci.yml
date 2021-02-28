@@ -3,7 +3,7 @@ image: debian:buster
 before_script:
   - apt-get update -qq
   - apt-get install -qq -y --no-install-recommends
-    git gcc make autoconf automake libtool gcovr
+            git gcc make autoconf automake libtool gcovr
 
 unit-tests:
   stage: test
