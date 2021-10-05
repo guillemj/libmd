@@ -21,6 +21,7 @@ md5.3: $(srcdir)/mdX.3
 	$(AM_V_GEN) $(SED) $(SED_MD5_SUBST) $(srcdir)/mdX.3 >$@
 
 dist_man_MANS = \
+	libmd.7 \
 	md2.3 \
 	md4.3 \
 	md5.3 \
