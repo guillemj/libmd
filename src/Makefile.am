@@ -74,33 +74,33 @@ DISTCLEANFILES = \
 # Generate a simple libtool symbol export list to be used as a fallback if
 # there is no version script support.
 libmd.sym: libmd.map
-	$(AM_V_GEN) sed -ne 's/^[[:space:]]\{1,\}\([A-Za-z0-9]\{1,\}\);/\1/p' $< > $@
+	$(AM_V_GEN) $(SED) -ne 's/^[[:space:]]\{1,\}\([A-Za-z0-9]\{1,\}\);/\1/p' $< > $@
 
 md2hl.c: helper.c
-	$(AM_V_GEN) sed -e 's/hashinc/md2.h/g' -e 's/HASH/MD2/g' $< > $@
+	$(AM_V_GEN) $(SED) -e 's/hashinc/md2.h/g' -e 's/HASH/MD2/g' $< > $@
 
 md4hl.c: helper.c
-	$(AM_V_GEN) sed -e 's/hashinc/md4.h/g' -e 's/HASH/MD4/g' $< > $@
+	$(AM_V_GEN) $(SED) -e 's/hashinc/md4.h/g' -e 's/HASH/MD4/g' $< > $@
 
 md5hl.c: helper.c
-	$(AM_V_GEN) sed -e 's/hashinc/md5.h/g' -e 's/HASH/MD5/g' $< > $@
+	$(AM_V_GEN) $(SED) -e 's/hashinc/md5.h/g' -e 's/HASH/MD5/g' $< > $@
 
 rmd160hl.c: helper.c
-	$(AM_V_GEN) sed -e 's/hashinc/rmd160.h/g' -e 's/HASH/RMD160/g' $< > $@
+	$(AM_V_GEN) $(SED) -e 's/hashinc/rmd160.h/g' -e 's/HASH/RMD160/g' $< > $@
 
 sha1hl.c: helper.c
-	$(AM_V_GEN) sed -e 's/hashinc/sha1.h/g' -e 's/HASH/SHA1/g' $< > $@
+	$(AM_V_GEN) $(SED) -e 's/hashinc/sha1.h/g' -e 's/HASH/SHA1/g' $< > $@
 
 sha256hl.c: helper.c
-	$(AM_V_GEN) sed -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA256/g' \
+	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA256/g' \
 	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' $< > $@
 
 sha384hl.c: helper.c
-	$(AM_V_GEN) sed -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA384/g' \
+	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA384/g' \
 	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' $< > $@
 
 sha512hl.c: helper.c
-	$(AM_V_GEN) sed -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA512/g' \
+	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA512/g' \
 	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' $< > $@
 
 runtimelibdir = $(libdir)
@@ -111,7 +111,7 @@ install-exec-hook:
 		mv $(DESTDIR)$(libdir)/libmd*.so.* \
 		   $(DESTDIR)$(runtimelibdir)/; \
 		soname=`readlink $(DESTDIR)$(libdir)/libmd.so`; \
-		sorelprefix=`echo $(libdir) | sed -r -e 's:(^/)?[^/]+:..:g'`; \
+		sorelprefix=`echo $(libdir) | $(SED) -r -e 's:(^/)?[^/]+:..:g'`; \
 		ln -sf $$sorelprefix$(runtimelibdir)/$$soname \
 		       $(DESTDIR)$(libdir)/libmd.so; \
 	fi

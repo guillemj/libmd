@@ -12,13 +12,13 @@ SED_MD4_SUBST = -e 's/mdX/md4/g' -e 's/MDX/MD4/g'
 SED_MD5_SUBST = -e 's/mdX/md5/g' -e 's/MDX/MD5/g'
 
 md2.3: $(srcdir)/mdX.3
-	$(AM_V_GEN) sed $(SED_MD2_SUBST) $< >$@
+	$(AM_V_GEN) $(SED) $(SED_MD2_SUBST) $< >$@
 
 md4.3: $(srcdir)/mdX.3
-	$(AM_V_GEN) sed $(SED_MD4_SUBST) $< >$@
+	$(AM_V_GEN) $(SED) $(SED_MD4_SUBST) $< >$@
 
 md5.3: $(srcdir)/mdX.3
-	$(AM_V_GEN) sed $(SED_MD5_SUBST) $< >$@
+	$(AM_V_GEN) $(SED) $(SED_MD5_SUBST) $< >$@
 
 dist_man_MANS = \
 	md2.3 \

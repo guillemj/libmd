@@ -30,6 +30,7 @@ LT_INIT
 LIBMD_LINKER_VERSION_SCRIPT
 
 # Checks for programs.
+AC_PROG_SED
 AC_PROG_CC
 
 # Checks for the build machinery.
