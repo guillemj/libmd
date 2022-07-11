@@ -18,6 +18,7 @@ check_PROGRAMS = \
 	rmd160 \
 	sha1 \
 	sha2 \
+	sha3 \
 	# EOL
 
 TESTS = $(check_PROGRAMS)

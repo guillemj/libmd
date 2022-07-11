@@ -58,12 +58,15 @@ libmd_la_SOURCES = \
 	local-endian.h \
 	local-link.h \
 	local-string.h \
+	keccak.h \
+	keccak.c \
 	md2.c \
 	md4.c \
 	md5.c \
 	rmd160.c \
 	sha1.c \
 	sha2.c \
+	sha3.c \
 	$(libmd_la_helper_sources) \
 	# EOL
 

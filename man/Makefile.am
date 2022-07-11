@@ -28,6 +28,9 @@ dist_man_MANS = \
 	rmd160.3 \
 	sha1.3 \
 	sha2.3 \
+	sha3.3 \
+	SHA3_Selftest.3 \
+	shake.3 \
 	# EOL
 
 md2_FUNCS = \
@@ -155,6 +158,36 @@ sha2_FUNCS = \
 $(sha2_FUNCS): sha2.3
 	$(LN_S) -f sha2.3 $(DESTDIR)$(man3dir)/$@.3
 
+sha3_FUNCS = \
+	SHA3_224_Final \
+	SHA3_224_Init \
+	SHA3_224_Update \
+	SHA3_256_Final \
+	SHA3_256_Init \
+	SHA3_256_Update \
+	SHA3_384_Final \
+	SHA3_384_Init \
+	SHA3_384_Update \
+	SHA3_512_Final \
+	SHA3_512_Init \
+	SHA3_512_Update \
+	# EOL
+
+$(sha3_FUNCS): sha3.3
+	$(LN_S) -f sha3.3 $(DESTDIR)$(man3dir)/$@.3
+
+shake_FUNCS = \
+	SHAKE128_Init \
+	SHAKE128_Update \
+	SHAKE128_Final \
+	SHAKE256_Init \
+	SHAKE256_Update \
+	SHAKE256_Final \
+	# EOL
+
+$(shake_FUNCS): shake.3
+	$(LN_S) -f shake.3 $(DESTDIR)$(man3dir)/$@.3
+
 digest_FUNCS = \
 	$(md2_FUNCS) \
 	$(md4_FUNCS) \
@@ -162,6 +195,8 @@ digest_FUNCS = \
 	$(rmd160_FUNCS) \
 	$(sha1_FUNCS) \
 	$(sha2_FUNCS) \
+	$(sha3_FUNCS) \
+	$(shake_FUNCS) \
 	# EOL
 
 install-data-hook: $(digest_FUNCS)

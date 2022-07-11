@@ -30,61 +30,15 @@
  * SHA-3: FIPS-202, Permutation-Based Hash and Extendable-Output Functions
  */
 
-#if HAVE_NBTOOL_CONFIG_H
-#include "nbtool_config.h"
-#endif
-
-#include <sys/cdefs.h>
-
-#if defined(_KERNEL) || defined(_STANDALONE)
-
-__KERNEL_RCSID(0, "$NetBSD: sha3.c,v 1.4 2024/01/19 19:32:42 christos Exp $");
-#include <lib/libkern/libkern.h>
-
-#define	SHA3_ASSERT	KASSERT
-
-#else
-
-__RCSID("$NetBSD: sha3.c,v 1.4 2024/01/19 19:32:42 christos Exp $");
-
-#include "namespace.h"
+#include <config.h>
 
 #include <assert.h>
 #include <string.h>
+#include <sha3.h>
 
-#define	SHA3_ASSERT	_DIAGASSERT
-
-#endif
-
-#include <sys/endian.h>
-#include <sys/sha3.h>
-
+#include "local-endian.h"
+#include "local-string.h"
 #include "keccak.h"
-
-/* XXX Disabled for now -- these will be libc-private.  */
-#if 0 && !defined(_KERNEL) && !defined(_STANDALONE)
-#ifdef __weak_alias
-__weak_alias(SHA3_224_Init,_SHA3_224_Init)
-__weak_alias(SHA3_224_Update,_SHA3_224_Update)
-__weak_alias(SHA3_224_Final,_SHA3_224_Final)
-__weak_alias(SHA3_256_Init,_SHA3_256_Init)
-__weak_alias(SHA3_256_Update,_SHA3_256_Update)
-__weak_alias(SHA3_256_Final,_SHA3_256_Final)
-__weak_alias(SHA3_384_Init,_SHA3_384_Init)
-__weak_alias(SHA3_384_Update,_SHA3_384_Update)
-__weak_alias(SHA3_384_Final,_SHA3_384_Final)
-__weak_alias(SHA3_512_Init,_SHA3_512_Init)
-__weak_alias(SHA3_512_Update,_SHA3_512_Update)
-__weak_alias(SHA3_512_Final,_SHA3_512_Final)
-__weak_alias(SHA3_Selftest,_SHA3_Selftest)
-__weak_alias(SHAKE128_Init,_SHAKE128_Init)
-__weak_alias(SHAKE128_Update,_SHAKE128_Update)
-__weak_alias(SHAKE128_Final,_SHAKE128_Final)
-__weak_alias(SHAKE256_Init,_SHAKE256_Init)
-__weak_alias(SHAKE256_Update,_SHAKE256_Update)
-__weak_alias(SHAKE256_Final,_SHAKE256_Final)
-#endif	/* __weak_alias */
-#endif	/* kernel/standalone */
 
 #define	MIN(a,b)	((a) < (b) ? (a) : (b))
 #define	arraycount(a)	(sizeof(a)/sizeof((a)[0]))
@@ -223,7 +177,7 @@ sha3_final(uint8_t *h, unsigned d, struct sha3 *C, unsigned rw)
 			T >>= 8;
 		} while (--d);
 	}
-	(void)explicit_memset(C->A, 0, sizeof C->A);
+	explicit_bzero(C->A, sizeof C->A);
 	C->nb = 0;
 }
 
@@ -274,7 +228,7 @@ shake_final(uint8_t *h, size_t d, struct sha3 *C, unsigned rw)
 		}
 	}
 
-	(void)explicit_memset(C->A, 0, sizeof C->A);
+	explicit_bzero(C->A, sizeof C->A);
 	C->nb = 0;
 }
 

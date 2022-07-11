@@ -30,6 +30,8 @@
 .Sh NAME
 .Nm SHA3_Selftest
 .Nd NIST FIPS PUB 202: SHA-3 Standard: Permutation-Based Hash and Extendable-Output Functions
+.Sh LIBRARY
+.Lb libmd
 .Sh SYNOPSIS
 .In sha3.h
 .Ft int
@@ -45,9 +47,8 @@ Applications should call
 .Fn SHA3_Selftest
 and confirm that it succeeded before using the
 .Xr sha3 3 ,
-.Xr SHAKE 3 ,
 or
-.Xr keccak 3
+.Xr shake 3
 functions.
 .Pp
 .Fn SHA3_Selftest
@@ -59,9 +60,8 @@ function costs a few hundred thousand cycles on most CPUs, since it
 involves a little over a hundred calls to the Keccak permutation,
 which usually take one or two thousand cycles each.
 .Sh SEE ALSO
-.Xr keccak 3 ,
 .Xr sha3 3 ,
-.Xr SHAKE 3
+.Xr shake 3
 .Sh STANDARDS
 .Rs
 .%A National Institute of Standards and Technology

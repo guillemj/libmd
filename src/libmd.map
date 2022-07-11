@@ -105,3 +105,32 @@ global:
 	SHA512_256Transform;
 	SHA512_256Update;
 } LIBMD_0.0;
+
+LIBMD_0.2 {
+global:
+	SHA3_224_Init;
+	SHA3_224_Update;
+	SHA3_224_Final;
+
+	SHA3_256_Init;
+	SHA3_256_Update;
+	SHA3_256_Final;
+
+	SHA3_384_Init;
+	SHA3_384_Update;
+	SHA3_384_Final;
+
+	SHA3_512_Init;
+	SHA3_512_Update;
+	SHA3_512_Final;
+
+	SHAKE128_Init;
+	SHAKE128_Update;
+	SHAKE128_Final;
+
+	SHAKE256_Init;
+	SHAKE256_Update;
+	SHAKE256_Final;
+
+	SHA3_Selftest;
+} LIBMD_0.1;

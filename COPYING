@@ -86,8 +86,8 @@ License: BSD-2-clause
 Files:
  include/sha3.h
  man/SHA3_Selftest.3
- man/SHAKE.3
  man/sha3.3
+ man/shake.3
  src/keccak.c
  src/keccak.h
  src/local-endian.h

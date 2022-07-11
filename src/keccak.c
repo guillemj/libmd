@@ -26,17 +26,7 @@
  * SUCH DAMAGE.
  */
 
-#include <sys/cdefs.h>
-
-#if defined(_KERNEL) || defined(_STANDALONE)
-__KERNEL_RCSID(0, "$NetBSD: keccak.c,v 1.1 2017/11/30 05:47:24 riastradh Exp $");
-
-#include <sys/types.h>
-#else
-__RCSID("$NetBSD: keccak.c,v 1.1 2017/11/30 05:47:24 riastradh Exp $");
-
 #include <stdint.h>
-#endif
 
 #include "keccak.h"
 

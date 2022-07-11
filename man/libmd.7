@@ -1,6 +1,6 @@
 .\" libmd man page
 .\"
-.\" Copyright © 2021 Guillem Jover <guillem@hadrons.org>
+.\" Copyright © 2021-2022 Guillem Jover <guillem@hadrons.org>
 .\"
 .\" Redistribution and use in source and binary forms, with or without
 .\" modification, are permitted provided that the following conditions
@@ -24,7 +24,7 @@
 .\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 .\" ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 \"
-.Dd Oct 05, 2021
+.Dd Jul 11, 2022
 .Dt libmd 7
 .Os
 .Sh NAME
@@ -71,6 +71,13 @@ and
 .El
 .Pp
 The following headers are provided for compatibility with
+.Nx .
+.Pp
+.Bl -tag -width 4m -compact
+.It In sha3.h
+.El
+.Pp
+The following headers are provided for compatibility with
 .Fx
 and
 .Dx .
@@ -87,7 +94,8 @@ and
 .Xr md5 3 ,
 .Xr rmd160 3 ,
 .Xr sha1 3 ,
-.Xr sha2 3 .
+.Xr sha2 3 ,
+.Xr sha3 3 .
 .Sh HISTORY
 The
 .Nm libmd

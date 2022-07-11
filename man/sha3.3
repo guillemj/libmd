@@ -30,6 +30,8 @@
 .Sh NAME
 .Nm SHA3
 .Nd NIST FIPS PUB 202: SHA-3 Standard: Permutation-Based Hash and Extendable-Output Functions
+.Sh LIBRARY
+.Lb libmd
 .Sh SYNOPSIS
 .In sha3.h
 .Ft void
@@ -115,9 +117,8 @@ is not allowed, unless it is reinitialized with
 .Fn SHA3_256_Init .
 .El
 .Sh SEE ALSO
-.Xr keccak 3 ,
 .Xr SHA3_Selftest 3 ,
-.Xr SHAKE 3
+.Xr shake 3
 .Sh STANDARDS
 .Rs
 .%A National Institute of Standards and Technology

@@ -7,6 +7,7 @@ include_HEADERS = \
 	rmd160.h \
 	sha1.h \
 	sha2.h \
+	sha3.h \
 	# EOL
 
 # Compatibility headers

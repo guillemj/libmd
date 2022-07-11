@@ -29,14 +29,16 @@
 #ifndef	_KECCAK_H
 #define	_KECCAK_H
 
-#include <sys/types.h>
-#include <sys/cdefs.h>
+#include <stdint.h>
 
-/* Private to libc.  */
-#define	keccakf1600	_netbsd_keccakf1600
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-__BEGIN_DECLS
 void	keccakf1600(uint64_t[25]);
-__END_DECLS
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif	/* KECCAK_H */
