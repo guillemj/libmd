@@ -90,8 +90,11 @@ Files:
  man/sha3.3
  src/keccak.c
  src/keccak.h
+ src/local-endian.h
  src/sha3.c
 Copyright:
+ Copyright © 2002 Thomas Moestl <tmm@FreeBSD.org>
+ Copyright © 2011 Guillem Jover <guillem@hadrons.org>
  Copyright © 2015 Taylor R. Campbell
 License: BSD-2-clause-contributors
  Redistribution and use in source and binary forms, with or without

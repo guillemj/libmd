@@ -55,6 +55,7 @@ EXTRA_libmd_la_DEPENDENCIES += \
 	helper.c \
 	# EOL
 libmd_la_SOURCES = \
+	local-endian.h \
 	local-link.h \
 	local-string.h \
 	md2.c \
