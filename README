@@ -14,18 +14,6 @@ The project website can be found at:
   <https://www.hadrons.org/software/libmd/>
 
 
-Mailing List
-------------
-
-The subscription interface and web archives can be found at:
-
-  <https://lists.freedesktop.org/mailman/listinfo/libbsd>
-
-The mail address is:
-
-  libbsd@lists.freedesktop.org
-
-
 Releases
 --------
 
@@ -36,3 +24,15 @@ Source Repository
 -----------------
 
   <https://git.hadrons.org/cgit/libmd.git>
+
+
+Mailing List
+------------
+
+The subscription interface and web archives can be found at:
+
+  <https://lists.freedesktop.org/mailman/listinfo/libbsd>
+
+The mail address is:
+
+  libbsd@lists.freedesktop.org
