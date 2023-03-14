@@ -32,7 +32,6 @@ Files:
  src/sha2.c
 Copyright:
  Copyright © 2000-2001, Aaron D. Gifford
- All rights reserved.
 License: BSD-3-clause-Aaron-D-Gifford
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
@@ -62,7 +61,7 @@ Files:
  include/rmd160.h
  src/rmd160.c
 Copyright:
- Copyright © 2001 Markus Friedl.  All rights reserved.
+ Copyright © 2001 Markus Friedl
 License: BSD-2-clause
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
@@ -88,7 +87,6 @@ Files:
  src/md2.c
 Copyright:
  Copyright (c) 2001 The NetBSD Foundation, Inc.
- All rights reserved.
  .
  This code is derived from software contributed to The NetBSD Foundation
  by Andrew Brown.
