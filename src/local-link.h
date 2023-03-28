@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015, 2019 Guillem Jover <guillem@hadrons.org>
+ * Copyright © 2015, 2019, 2021, 2023 Guillem Jover <guillem@hadrons.org>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -36,10 +36,12 @@
  * is too cumbersome, as it does not work when static linking, and when
  * dynamic linking it does not make the aliases visible within the DLL itself.
  *
+ * On macOS we cannot use proper strong aliases.
+ *
  * Instead we use normal function wrapper in those cases, which are way more
  * maintainable.
  */
-#ifndef _MSC_VER
+#if !defined(_MSC_VER) && !defined(__APPLE__)
 #define libmd_alias(alias, symbol) \
 	extern __typeof(symbol) alias __attribute__((__alias__(#symbol)))
 #endif
