@@ -36,14 +36,20 @@
  * is too cumbersome, as it does not work when static linking, and when
  * dynamic linking it does not make the aliases visible within the DLL itself.
  *
- * On macOS we cannot use proper strong aliases.
+ * On macOS we need to use an assembler alias as it does not support
+ * the alias attribute.
  *
  * Instead we use normal function wrapper in those cases, which are way more
  * maintainable.
  */
-#if !defined(_MSC_VER) && !defined(__APPLE__)
+#if defined(__APPLE__)
 #define libmd_alias(alias, symbol) \
-	extern __typeof(symbol) alias __attribute__((__alias__(#symbol)))
+	__asm__(".globl _" #alias); \
+	__asm__(".set _" #alias ", _" #symbol); \
+	extern __typeof__(symbol) alias
+#elif !defined(_MSC_VER)
+#define libmd_alias(alias, symbol) \
+	extern __typeof__(symbol) alias __attribute__((__alias__(#symbol)))
 #endif
 
 #ifdef __ELF__
@@ -54,7 +60,7 @@
 	__asm__(".symver " #symbol "," #alias "@" #version)
 #else
 #define libmd_symver_default(alias, symbol, version) \
-	extern __typeof(symbol) alias __attribute__((__alias__(#symbol)))
+	libmd_alias(alias, symbol)
 
 #define libmd_symver_variant(alias, symbol, version)
 #endif
