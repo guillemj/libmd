@@ -1,4 +1,4 @@
-/*	$OpenBSD: sha1.h,v 1.22 2004/05/05 17:09:45 millert Exp $	*/
+/*	$OpenBSD: sha1.h,v 1.24 2012/12/05 23:19:57 deraadt Exp $	*/
 
 /*
  * SHA-1 in C
