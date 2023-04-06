@@ -28,6 +28,7 @@
 
 #include <assert.h>
 #include <string.h>
+#include <stdio.h>
 
 static int
 hexchar2bin(int c)
@@ -51,6 +52,16 @@ hex2bin(uint8_t *bin, const char *str, size_t bin_len)
 			 hexchar2bin(str[i * 2 + 1]);
 }
 
+static int
+test_eq(const char *ref, const char *got)
+{
+	if (strcmp(ref, got) == 0)
+		return 1;
+
+	fprintf(stderr, "ref <%s> != got <%s>\n", ref, got);
+	return 0;
+}
+
 #define DEF_TEST_DIGEST(name, type) \
 static void \
 test_##name(const char *hash_str_ref, const char *data) \
@@ -63,12 +74,12 @@ test_##name(const char *hash_str_ref, const char *data) \
 	hex2bin(hash_bin_ref, hash_str_ref, name##_DIGEST_LENGTH); \
 \
 	name##Data((const uint8_t *)data, strlen(data), hash_str_got); \
-	assert(strcmp(hash_str_ref, hash_str_got) == 0); \
+	assert(test_eq(hash_str_ref, hash_str_got)); \
 \
 	name##Init(&ctx); \
 	name##Update(&ctx, (const uint8_t *)data, strlen(data)); \
 	name##End(&ctx, hash_str_got); \
-	assert(strcmp(hash_str_ref, hash_str_got) == 0); \
+	assert(test_eq(hash_str_ref, hash_str_got)); \
 \
 	name##Init(&ctx); \
 	name##Update(&ctx, (const uint8_t *)data, strlen(data)); \
