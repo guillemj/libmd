@@ -1,4 +1,4 @@
-/*	$OpenBSD: sha2.c,v 1.12 2008/09/06 12:00:19 djm Exp $	*/
+/*	$OpenBSD: sha2.c,v 1.28 2019/07/23 12:35:22 dtucker Exp $	*/
 
 /*
  * FILE:	sha2.c
@@ -55,9 +55,15 @@
  *   #define SHA2_UNROLL_TRANSFORM
  *
  */
+#ifndef SHA2_SMALL
+#if defined(__amd64__) || defined(__i386__)
+#define SHA2_UNROLL_TRANSFORM
+#endif
+#endif
 
-/*** SHA-256/384/512 Various Length Definitions ***********************/
+/*** SHA-224/256/384/512 Various Length Definitions ***********************/
 /* NOTE: Most of these are in sha2.h */
+#define SHA224_SHORT_BLOCK_LENGTH	(SHA224_BLOCK_LENGTH - 8)
 #define SHA256_SHORT_BLOCK_LENGTH	(SHA256_BLOCK_LENGTH - 8)
 #define SHA384_SHORT_BLOCK_LENGTH	(SHA384_BLOCK_LENGTH - 16)
 #define SHA512_SHORT_BLOCK_LENGTH	(SHA512_BLOCK_LENGTH - 16)
@@ -110,22 +116,22 @@
  * Bit shifting and rotation (used by the six SHA-XYZ logical functions:
  *
  *   NOTE:  The naming of R and S appears backwards here (R is a SHIFT and
- *   S is a ROTATION) because the SHA-256/384/512 description document
+ *   S is a ROTATION) because the SHA-224/256/384/512 description document
  *   (see http://csrc.nist.gov/cryptval/shs/sha256-384-512.pdf) uses this
  *   same "backwards" definition.
  */
-/* Shift-right (used in SHA-256, SHA-384, and SHA-512): */
+/* Shift-right (used in SHA-224, SHA-256, SHA-384, and SHA-512): */
 #define R(b,x) 		((x) >> (b))
-/* 32-bit Rotate-right (used in SHA-256): */
+/* 32-bit Rotate-right (used in SHA-224 and SHA-256): */
 #define S32(b,x)	(((x) >> (b)) | ((x) << (32 - (b))))
 /* 64-bit Rotate-right (used in SHA-384 and SHA-512): */
 #define S64(b,x)	(((x) >> (b)) | ((x) << (64 - (b))))
 
-/* Two of six logical functions used in SHA-256, SHA-384, and SHA-512: */
+/* Two of six logical functions used in SHA-224, SHA-256, SHA-384, and SHA-512: */
 #define Ch(x,y,z)	(((x) & (y)) ^ ((~(x)) & (z)))
 #define Maj(x,y,z)	(((x) & (y)) ^ ((x) & (z)) ^ ((y) & (z)))
 
-/* Four of six logical functions used in SHA-256: */
+/* Four of six logical functions used in SHA-224 and SHA-256: */
 #define Sigma0_256(x)	(S32(2,  (x)) ^ S32(13, (x)) ^ S32(22, (x)))
 #define Sigma1_256(x)	(S32(6,  (x)) ^ S32(11, (x)) ^ S32(25, (x)))
 #define sigma0_256(x)	(S32(7,  (x)) ^ S32(18, (x)) ^ R(3 ,   (x)))
@@ -139,7 +145,7 @@
 
 
 /*** SHA-XYZ INITIAL HASH VALUES AND CONSTANTS ************************/
-/* Hash constant words K for SHA-256: */
+/* Hash constant words K for SHA-224 and SHA-256: */
 static const uint32_t K256[64] = {
 	0x428a2f98UL, 0x71374491UL, 0xb5c0fbcfUL, 0xe9b5dba5UL,
 	0x3956c25bUL, 0x59f111f1UL, 0x923f82a4UL, 0xab1c5ed5UL,
@@ -171,7 +177,6 @@ static const uint32_t sha256_initial_hash_value[8] = {
 	0x5be0cd19UL
 };
 
-#ifndef SHA256_ONLY
 /* Hash constant words K for SHA-384 and SHA-512: */
 static const uint64_t K512[80] = {
 	0x428a2f98d728ae22ULL, 0x7137449123ef65cdULL,
@@ -216,6 +221,31 @@ static const uint64_t K512[80] = {
 	0x5fcb6fab3ad6faecULL, 0x6c44198c4a475817ULL
 };
 
+/* Initial hash value H for SHA-512 */
+static const uint64_t sha512_initial_hash_value[8] = {
+	0x6a09e667f3bcc908ULL,
+	0xbb67ae8584caa73bULL,
+	0x3c6ef372fe94f82bULL,
+	0xa54ff53a5f1d36f1ULL,
+	0x510e527fade682d1ULL,
+	0x9b05688c2b3e6c1fULL,
+	0x1f83d9abfb41bd6bULL,
+	0x5be0cd19137e2179ULL
+};
+
+#if !defined(SHA2_SMALL)
+/* Initial hash value H for SHA-224: */
+static const uint32_t sha224_initial_hash_value[8] = {
+	0xc1059ed8UL,
+	0x367cd507UL,
+	0x3070dd17UL,
+	0xf70e5939UL,
+	0xffc00b31UL,
+	0x68581511UL,
+	0x64f98fa7UL,
+	0xbefa4fa4UL
+};
+
 /* Initial hash value H for SHA-384 */
 static const uint64_t sha384_initial_hash_value[8] = {
 	0xcbbb9d5dc1059ed8ULL,
@@ -228,25 +258,76 @@ static const uint64_t sha384_initial_hash_value[8] = {
 	0x47b5481dbefa4fa4ULL
 };
 
-/* Initial hash value H for SHA-512 */
-static const uint64_t sha512_initial_hash_value[8] = {
-	0x6a09e667f3bcc908ULL,
-	0xbb67ae8584caa73bULL,
-	0x3c6ef372fe94f82bULL,
-	0xa54ff53a5f1d36f1ULL,
-	0x510e527fade682d1ULL,
-	0x9b05688c2b3e6c1fULL,
-	0x1f83d9abfb41bd6bULL,
-	0x5be0cd19137e2179ULL
+/* Initial hash value H for SHA-512-256 */
+static const uint64_t sha512_256_initial_hash_value[8] = {
+	0x22312194fc2bf72cULL,
+	0x9f555fa3c84c64c2ULL,
+	0x2393b86b6f53b151ULL,
+	0x963877195940eabdULL,
+	0x96283ee2a88effe3ULL,
+	0xbe5e1e2553863992ULL,
+	0x2b0199fc2c85b8aaULL,
+	0x0eb72ddc81c52ca2ULL
 };
-#endif /* SHA256_ONLY */
+
+/*** SHA-224: *********************************************************/
+void
+SHA224Init(SHA2_CTX *context)
+{
+	memcpy(context->state.st32, sha224_initial_hash_value,
+	    sizeof(sha224_initial_hash_value));
+	memset(context->buffer, 0, sizeof(context->buffer));
+	context->bitcount[0] = 0;
+}
+
+#ifdef libmd_strong_alias
+libmd_strong_alias(SHA224Transform, SHA256Transform);
+libmd_strong_alias(SHA224Update, SHA256Update);
+libmd_strong_alias(SHA224Pad, SHA256Pad);
+#else
+void
+SHA224Transform(uint64_t state[8], const uint8_t data[SHA256_BLOCK_LENGTH])
+{
+	SHA256Transform(state, data);
+}
+
+void
+SHA224Update(SHA2_CTX *context, const uint8_t *data, size_t len)
+{
+	SHA256Update(context, data, len);
+}
+
+void
+SHA224Pad(SHA2_CTX *context)
+{
+	SHA256Pad(context);
+}
+#endif
+
+void
+SHA224Final(uint8_t digest[SHA224_DIGEST_LENGTH], SHA2_CTX *context)
+{
+#ifndef WORDS_BIGENDIAN
+	int	i;
+#endif
+
+	SHA224Pad(context);
+
+#ifndef WORDS_BIGENDIAN
+	/* Convert TO host byte order */
+	for (i = 0; i < 7; i++)
+		BE_32_TO_8(digest + i * 4, context->state.st32[i]);
+#else
+	memcpy(digest, context->state.st32, SHA224_DIGEST_LENGTH);
+#endif
+	memset(context, 0, sizeof(*context));
+}
+#endif /* !defined(SHA2_SMALL) */
 
 /*** SHA-256: *********************************************************/
 void
 SHA256Init(SHA2_CTX *context)
 {
-	if (context == NULL)
-		return;
 	memcpy(context->state.st32, sha256_initial_hash_value,
 	    sizeof(sha256_initial_hash_value));
 	memset(context->buffer, 0, sizeof(context->buffer));
@@ -435,7 +516,7 @@ SHA256Update(SHA2_CTX *context, const uint8_t *data, size_t len)
 		} else {
 			/* The buffer is not yet full */
 			memcpy(&context->buffer[usedspace], data, len);
-			context->bitcount[0] += len << 3;
+			context->bitcount[0] += (uint64_t)len << 3;
 			/* Clean up: */
 			usedspace = freespace = 0;
 			return;
@@ -503,31 +584,27 @@ SHA256Pad(SHA2_CTX *context)
 void
 SHA256Final(uint8_t digest[SHA256_DIGEST_LENGTH], SHA2_CTX *context)
 {
+#ifndef WORDS_BIGENDIAN
+	int	i;
+#endif
+
 	SHA256Pad(context);
 
-	/* If no digest buffer is passed, we don't bother doing this: */
-	if (digest != NULL) {
 #ifndef WORDS_BIGENDIAN
-		int	i;
-
-		/* Convert TO host byte order */
-		for (i = 0; i < 8; i++)
-			BE_32_TO_8(digest + i * 4, context->state.st32[i]);
+	/* Convert TO host byte order */
+	for (i = 0; i < 8; i++)
+		BE_32_TO_8(digest + i * 4, context->state.st32[i]);
 #else
-		memcpy(digest, context->state.st32, SHA256_DIGEST_LENGTH);
+	memcpy(digest, context->state.st32, SHA256_DIGEST_LENGTH);
 #endif
-		memset(context, 0, sizeof(*context));
-	}
+	memset(context, 0, sizeof(*context));
 }
 
 
-#ifndef SHA256_ONLY
 /*** SHA-512: *********************************************************/
 void
 SHA512Init(SHA2_CTX *context)
 {
-	if (context == NULL)
-		return;
 	memcpy(context->state.st64, sha512_initial_hash_value,
 	    sizeof(sha512_initial_hash_value));
 	memset(context->buffer, 0, sizeof(context->buffer));
@@ -785,30 +862,28 @@ SHA512Pad(SHA2_CTX *context)
 void
 SHA512Final(uint8_t digest[SHA512_DIGEST_LENGTH], SHA2_CTX *context)
 {
+#ifndef WORDS_BIGENDIAN
+	int	i;
+#endif
+
 	SHA512Pad(context);
 
-	/* If no digest buffer is passed, we don't bother doing this: */
-	if (digest != NULL) {
 #ifndef WORDS_BIGENDIAN
-		int	i;
-
-		/* Convert TO host byte order */
-		for (i = 0; i < 8; i++)
-			BE_64_TO_8(digest + i * 8, context->state.st64[i]);
+	/* Convert TO host byte order */
+	for (i = 0; i < 8; i++)
+		BE_64_TO_8(digest + i * 8, context->state.st64[i]);
 #else
-		memcpy(digest, context->state.st64, SHA512_DIGEST_LENGTH);
+	memcpy(digest, context->state.st64, SHA512_DIGEST_LENGTH);
 #endif
-		memset(context, 0, sizeof(*context));
-	}
+	memset(context, 0, sizeof(*context));
 }
 
+#if !defined(SHA2_SMALL)
 
 /*** SHA-384: *********************************************************/
 void
 SHA384Init(SHA2_CTX *context)
 {
-	if (context == NULL)
-		return;
 	memcpy(context->state.st64, sha384_initial_hash_value,
 	    sizeof(sha384_initial_hash_value));
 	memset(context->buffer, 0, sizeof(context->buffer));
@@ -842,22 +917,74 @@ SHA384Pad(SHA2_CTX *context)
 void
 SHA384Final(uint8_t digest[SHA384_DIGEST_LENGTH], SHA2_CTX *context)
 {
+#ifndef WORDS_BIGENDIAN
+	int	i;
+#endif
+
 	SHA384Pad(context);
 
-	/* If no digest buffer is passed, we don't bother doing this: */
-	if (digest != NULL) {
 #ifndef WORDS_BIGENDIAN
-		int	i;
-
-		/* Convert TO host byte order */
-		for (i = 0; i < 6; i++)
-			BE_64_TO_8(digest + i * 8, context->state.st64[i]);
+	/* Convert TO host byte order */
+	for (i = 0; i < 6; i++)
+		BE_64_TO_8(digest + i * 8, context->state.st64[i]);
 #else
-		memcpy(digest, context->state.st64, SHA384_DIGEST_LENGTH);
+	memcpy(digest, context->state.st64, SHA384_DIGEST_LENGTH);
 #endif
-	}
-
 	/* Zero out state data */
 	memset(context, 0, sizeof(*context));
 }
-#endif /* SHA256_ONLY */
+
+/*** SHA-512/256: *********************************************************/
+void
+SHA512_256Init(SHA2_CTX *context)
+{
+	memcpy(context->state.st64, sha512_256_initial_hash_value,
+	    sizeof(sha512_256_initial_hash_value));
+	memset(context->buffer, 0, sizeof(context->buffer));
+	context->bitcount[0] = context->bitcount[1] = 0;
+}
+
+#ifdef libmd_strong_alias
+libmd_strong_alias(SHA512_256Transform, SHA512Transform);
+libmd_strong_alias(SHA512_256Update, SHA512Update);
+libmd_strong_alias(SHA512_256Pad, SHA512Pad);
+#else
+void
+SHA512_256Transform(uint64_t state[8], const uint8_t data[SHA512_256_BLOCK_LENGTH])
+{
+	SHA512Transform(state, data);
+}
+
+void
+SHA512_256Update(SHA2_CTX *context, const uint8_t *data, size_t len)
+{
+	SHA512Update(context, data, len);
+}
+
+void
+SHA512_256Pad(SHA2_CTX *context)
+{
+	SHA512Pad(context);
+}
+#endif
+
+void
+SHA512_256Final(uint8_t digest[SHA512_256_DIGEST_LENGTH], SHA2_CTX *context)
+{
+#ifndef WORDS_BIGENDIAN
+	int	i;
+#endif
+
+	SHA512_256Pad(context);
+
+#ifndef WORDS_BIGENDIAN
+	/* Convert TO host byte order */
+	for (i = 0; i < 4; i++)
+		BE_64_TO_8(digest + i * 8, context->state.st64[i]);
+#else
+	memcpy(digest, context->state.st64, SHA512_256_DIGEST_LENGTH);
+#endif
+	/* Zero out state data */
+	memset(context, 0, sizeof(*context));
+}
+#endif /* !defined(SHA2_SMALL) */

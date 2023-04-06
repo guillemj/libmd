@@ -19,9 +19,11 @@ libmd_la_helper_sources = \
 	md5hl.c \
 	rmd160hl.c \
 	sha1hl.c \
+	sha224hl.c \
 	sha256hl.c \
 	sha384hl.c \
 	sha512hl.c \
+	sha512_256hl.c \
 	$(nil)
 
 EXTRA_libmd_la_DEPENDENCIES = \
@@ -74,7 +76,7 @@ DISTCLEANFILES = \
 # Generate a simple libtool symbol export list to be used as a fallback if
 # there is no version script support.
 libmd.sym: libmd.map
-	$(AM_V_GEN) $(SED) -ne 's/^[[:space:]]\{1,\}\([A-Za-z0-9]\{1,\}\);/\1/p' libmd.map > $@
+	$(AM_V_GEN) $(SED) -ne 's/^[[:space:]]\{1,\}\([A-Za-z0-9_]\{1,\}\);/\1/p' libmd.map > $@
 
 md2hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/md2.h/g' -e 's/HASH/MD2/g' helper.c > $@
@@ -91,6 +93,10 @@ rmd160hl.c: helper.c
 sha1hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/sha1.h/g' -e 's/HASH/SHA1/g' helper.c > $@
 
+sha224hl.c: helper.c
+	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA224/g' \
+	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' helper.c > $@
+
 sha256hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA256/g' \
 	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' helper.c > $@
@@ -102,6 +108,10 @@ sha384hl.c: helper.c
 sha512hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA512/g' \
 	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' helper.c > $@
+
+sha512_256hl.c: helper.c
+	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA512_256/g' \
+	                -e 's/SHA512_256_CTX/SHA2_CTX/g' helper.c > $@
 
 runtimelibdir = $(libdir)
 
