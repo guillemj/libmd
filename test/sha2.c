@@ -30,13 +30,22 @@
 
 #include "test.h"
 
+DEF_TEST_DIGEST(SHA224, SHA2)
 DEF_TEST_DIGEST(SHA256, SHA2)
 DEF_TEST_DIGEST(SHA384, SHA2)
 DEF_TEST_DIGEST(SHA512, SHA2)
+DEF_TEST_DIGEST(SHA512_256, SHA2)
 
 int
 main(int argc, char *argv[])
 {
+	test_SHA224("d14a028c2a3a2bc9476102bb288234c415a2b01f828ea62ac5b3e42f",
+	            "");
+	test_SHA224("23097d223405d8228642a477bda255b32aadbce4bda0b3f7e36c9da7",
+	            "abc");
+	test_SHA224("a7470858e79c282bc2f6adfd831b132672dfd1224c1e78cbf5bcd057",
+	            "12345");
+
 	test_SHA256("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
 	            "");
 	test_SHA256("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
@@ -57,6 +66,13 @@ main(int argc, char *argv[])
 	            "abc");
 	test_SHA512("3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79",
 	            "12345");
+
+	test_SHA512_256("c672b8d1ef56ed28ab87c3622c5114069bdd3ad7b8f9737498d0c01ecef0967a",
+	                "");
+	test_SHA512_256("53048e2681941ef99b2e29b76b4c7dabe4c2d0c634fc6d46e0e2f13107e7af23",
+	                "abc");
+	test_SHA512_256("ee039e3bed452ceb91427fcef9f0e01b6af73272c8a103e5bb853c9e3170edef",
+	                "12345");
 
 	return 0;
 }
