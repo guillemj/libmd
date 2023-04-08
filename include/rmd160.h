@@ -1,4 +1,4 @@
-/*	$OpenBSD: rmd160.h,v 1.15 2004/05/03 17:30:14 millert Exp $	*/
+/*	$OpenBSD: rmd160.h,v 1.17 2012/12/05 23:19:57 deraadt Exp $	*/
 /*
  * Copyright (c) 2001 Markus Friedl.  All rights reserved.
  *

@@ -29,8 +29,8 @@
 
 #include <config.h>
 
-#include <string.h>
 #include <sys/types.h>
+#include <string.h>
 #include <rmd160.h>
 
 #define PUT_64BIT_LE(cp, value) do {                                    \
@@ -84,7 +84,7 @@
 
 #define X(i)	x[i]
 
-static uint8_t PADDING[RMD160_BLOCK_LENGTH] = {
+static const uint8_t PADDING[RMD160_BLOCK_LENGTH] = {
 	0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -153,11 +153,9 @@ RMD160Final(uint8_t digest[RMD160_DIGEST_LENGTH], RMD160_CTX *ctx)
 	int i;
 
 	RMD160Pad(ctx);
-	if (digest != NULL) {
-		for (i = 0; i < 5; i++)
-			PUT_32BIT_LE(digest + i*4, ctx->state[i]);
-		memset(ctx, 0, sizeof (*ctx));
-	}
+	for (i = 0; i < 5; i++)
+		PUT_32BIT_LE(digest + i*4, ctx->state[i]);
+	memset(ctx, 0, sizeof (*ctx));
 }
 
 void
