@@ -235,21 +235,18 @@ shake_final(uint8_t *h, size_t d, struct sha3 *C, unsigned rw)
 void
 SHA3_224_Init(SHA3_224_CTX *C)
 {
-
 	sha3_init(&C->C224, sha3_rate(SHA3_224_DIGEST_LENGTH));
 }
 
 void
 SHA3_224_Update(SHA3_224_CTX *C, const uint8_t *data, size_t len)
 {
-
 	sha3_update(&C->C224, data, len, sha3_rate(SHA3_224_DIGEST_LENGTH));
 }
 
 void
 SHA3_224_Final(uint8_t h[SHA3_224_DIGEST_LENGTH], SHA3_224_CTX *C)
 {
-
 	sha3_final(h, SHA3_224_DIGEST_LENGTH, &C->C224,
 	    sha3_rate(SHA3_224_DIGEST_LENGTH));
 }
@@ -257,21 +254,18 @@ SHA3_224_Final(uint8_t h[SHA3_224_DIGEST_LENGTH], SHA3_224_CTX *C)
 void
 SHA3_256_Init(SHA3_256_CTX *C)
 {
-
 	sha3_init(&C->C256, sha3_rate(SHA3_256_DIGEST_LENGTH));
 }
 
 void
 SHA3_256_Update(SHA3_256_CTX *C, const uint8_t *data, size_t len)
 {
-
 	sha3_update(&C->C256, data, len, sha3_rate(SHA3_256_DIGEST_LENGTH));
 }
 
 void
 SHA3_256_Final(uint8_t h[SHA3_256_DIGEST_LENGTH], SHA3_256_CTX *C)
 {
-
 	sha3_final(h, SHA3_256_DIGEST_LENGTH, &C->C256,
 	    sha3_rate(SHA3_256_DIGEST_LENGTH));
 }
@@ -279,21 +273,18 @@ SHA3_256_Final(uint8_t h[SHA3_256_DIGEST_LENGTH], SHA3_256_CTX *C)
 void
 SHA3_384_Init(SHA3_384_CTX *C)
 {
-
 	sha3_init(&C->C384, sha3_rate(SHA3_384_DIGEST_LENGTH));
 }
 
 void
 SHA3_384_Update(SHA3_384_CTX *C, const uint8_t *data, size_t len)
 {
-
 	sha3_update(&C->C384, data, len, sha3_rate(SHA3_384_DIGEST_LENGTH));
 }
 
 void
 SHA3_384_Final(uint8_t h[SHA3_384_DIGEST_LENGTH], SHA3_384_CTX *C)
 {
-
 	sha3_final(h, SHA3_384_DIGEST_LENGTH, &C->C384,
 	    sha3_rate(SHA3_384_DIGEST_LENGTH));
 }
@@ -301,21 +292,18 @@ SHA3_384_Final(uint8_t h[SHA3_384_DIGEST_LENGTH], SHA3_384_CTX *C)
 void
 SHA3_512_Init(SHA3_512_CTX *C)
 {
-
 	sha3_init(&C->C512, sha3_rate(SHA3_512_DIGEST_LENGTH));
 }
 
 void
 SHA3_512_Update(SHA3_512_CTX *C, const uint8_t *data, size_t len)
 {
-
 	sha3_update(&C->C512, data, len, sha3_rate(SHA3_512_DIGEST_LENGTH));
 }
 
 void
 SHA3_512_Final(uint8_t h[SHA3_512_DIGEST_LENGTH], SHA3_512_CTX *C)
 {
-
 	sha3_final(h, SHA3_512_DIGEST_LENGTH, &C->C512,
 	    sha3_rate(SHA3_512_DIGEST_LENGTH));
 }
@@ -323,42 +311,36 @@ SHA3_512_Final(uint8_t h[SHA3_512_DIGEST_LENGTH], SHA3_512_CTX *C)
 void
 SHAKE128_Init(SHAKE128_CTX *C)
 {
-
 	sha3_init(&C->C128, sha3_rate(128/8));
 }
 
 void
 SHAKE128_Update(SHAKE128_CTX *C, const uint8_t *data, size_t len)
 {
-
 	sha3_update(&C->C128, data, len, sha3_rate(128/8));
 }
 
 void
 SHAKE128_Final(uint8_t *h, size_t d, SHAKE128_CTX *C)
 {
-
 	shake_final(h, d, &C->C128, sha3_rate(128/8));
 }
 
 void
 SHAKE256_Init(SHAKE256_CTX *C)
 {
-
 	sha3_init(&C->C256, sha3_rate(256/8));
 }
 
 void
 SHAKE256_Update(SHAKE256_CTX *C, const uint8_t *data, size_t len)
 {
-
 	sha3_update(&C->C256, data, len, sha3_rate(256/8));
 }
 
 void
 SHAKE256_Final(uint8_t *h, size_t d, SHAKE256_CTX *C)
 {
-
 	shake_final(h, d, &C->C256, sha3_rate(256/8));
 }
 

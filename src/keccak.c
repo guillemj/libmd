@@ -44,7 +44,6 @@
 static inline secret uint64_t
 rol64(secret uint64_t v, unsigned c)
 {
-
 	return ((v << c) | (v >> (64 - c)));
 }
 
@@ -130,7 +129,6 @@ keccakf1600_chi(secret uint64_t A[25])
 static void
 keccakf1600_round(secret uint64_t A[25])
 {
-
 	keccakf1600_theta(A);
 	keccakf1600_rho_pi(A);
 	keccakf1600_chi(A);
