@@ -43,12 +43,12 @@
  * maintainable.
  */
 #if defined(__APPLE__)
-#define libmd_alias(alias, symbol) \
+#define libmd_strong_alias(alias, symbol) \
 	__asm__(".globl _" #alias); \
 	__asm__(".set _" #alias ", _" #symbol); \
 	extern __typeof__(symbol) alias
 #elif !defined(_MSC_VER)
-#define libmd_alias(alias, symbol) \
+#define libmd_strong_alias(alias, symbol) \
 	extern __typeof__(symbol) alias __attribute__((__alias__(#symbol)))
 #endif
 
@@ -60,7 +60,7 @@
 	__asm__(".symver " #symbol "," #alias "@" #version)
 #else
 #define libmd_symver_default(alias, symbol, version) \
-	libmd_alias(alias, symbol)
+	libmd_strong_alias(alias, symbol)
 
 #define libmd_symver_variant(alias, symbol, version)
 #endif

@@ -815,10 +815,10 @@ SHA384Init(SHA2_CTX *context)
 	context->bitcount[0] = context->bitcount[1] = 0;
 }
 
-#ifdef libmd_alias
-libmd_alias(SHA384Transform, SHA512Transform);
-libmd_alias(SHA384Update, SHA512Update);
-libmd_alias(SHA384Pad, SHA512Pad);
+#ifdef libmd_strong_alias
+libmd_strong_alias(SHA384Transform, SHA512Transform);
+libmd_strong_alias(SHA384Update, SHA512Update);
+libmd_strong_alias(SHA384Pad, SHA512Pad);
 #else
 void
 SHA384Transform(uint64_t state[8], const uint8_t data[SHA512_BLOCK_LENGTH])
