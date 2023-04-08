@@ -1,4 +1,4 @@
-/*	$OpenBSD: md4.h,v 1.14 2004/05/03 17:30:14 millert Exp $	*/
+/*	$OpenBSD: md4.h,v 1.16 2012/12/05 23:19:57 deraadt Exp $	*/
 
 /*
  * This code implements the MD4 message-digest algorithm.
