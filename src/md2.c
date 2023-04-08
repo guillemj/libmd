@@ -33,7 +33,6 @@
 
 #include <sys/types.h>
 
-#include <assert.h>
 #include <md2.h>
 #include <string.h>
 
