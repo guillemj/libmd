@@ -4,12 +4,12 @@ AM_CPPFLAGS = \
 	-I$(top_builddir) \
 	-I$(srcdir) \
 	-I$(top_srcdir)/include \
-	$(nil)
+	# EOL
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = \
 	libmd.pc \
-	$(nil)
+	# EOL
 
 lib_LTLIBRARIES = libmd.la
 
@@ -24,26 +24,30 @@ libmd_la_helper_sources = \
 	sha384hl.c \
 	sha512hl.c \
 	sha512_256hl.c \
-	$(nil)
+	# EOL
 
 EXTRA_libmd_la_DEPENDENCIES = \
 	libmd.map
 
 libmd_la_LDFLAGS = \
 	-no-undefined \
-	-version-number $(LIBMD_ABI)
+	-version-number $(LIBMD_ABI) \
+	# EOL
 if HAVE_LINKER_VERSION_SCRIPT
 libmd_la_LDFLAGS += \
-	-Wl,--version-script=$(srcdir)/libmd.map
+	-Wl,--version-script=$(srcdir)/libmd.map \
+	# EOL
 else
 libmd_la_LDFLAGS += \
-	-export-symbols libmd.sym
+	-export-symbols libmd.sym \
+	# EOL
 EXTRA_libmd_la_DEPENDENCIES += \
-	libmd.sym
+	libmd.sym \
+	# EOL
 endif
 EXTRA_libmd_la_DEPENDENCIES += \
 	helper.c \
-	$(nil)
+	# EOL
 libmd_la_SOURCES = \
 	local-link.h \
 	md2.c \
@@ -53,25 +57,25 @@ libmd_la_SOURCES = \
 	sha1.c \
 	sha2.c \
 	$(libmd_la_helper_sources) \
-	$(nil)
+	# EOL
 
 BUILT_SOURCES = \
 	$(libmd_la_helper_sources) \
-	$(nil)
+	# EOL
 
 EXTRA_DIST = \
 	libmd.map \
 	libmd.pc.in \
 	helper.c \
-	$(nil)
+	# EOL
 
 CLEANFILES = \
 	$(libmd_la_helper_sources) \
-	$(nil)
+	# EOL
 
 DISTCLEANFILES = \
 	libmd.sym \
-	$(nil)
+	# EOL
 
 # Generate a simple libtool symbol export list to be used as a fallback if
 # there is no version script support.

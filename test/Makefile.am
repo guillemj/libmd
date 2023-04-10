@@ -3,13 +3,13 @@
 AM_CPPFLAGS = \
 	-I$(top_builddir) \
 	-I$(top_srcdir)/include \
-	$(nil)
+	# EOL
 
 LDADD = $(top_builddir)/src/libmd.la
 
 check_HEADERS = \
 	test.h \
-	$(nil)
+	# EOL
 
 check_PROGRAMS = \
 	md2 \
@@ -18,6 +18,6 @@ check_PROGRAMS = \
 	rmd160 \
 	sha1 \
 	sha2 \
-	$(nil)
+	# EOL
 
 TESTS = $(check_PROGRAMS)

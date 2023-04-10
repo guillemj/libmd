@@ -7,7 +7,7 @@ include_HEADERS = \
 	rmd160.h \
 	sha1.h \
 	sha2.h \
-	$(nil)
+	# EOL
 
 # Compatibility headers
 include_HEADERS += \
@@ -15,4 +15,4 @@ include_HEADERS += \
 	sha.h \
 	sha256.h \
 	sha512.h \
-	$(nil)
+	# EOL

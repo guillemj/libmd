@@ -1,11 +1,11 @@
 EXTRA_DIST = \
 	mdX.3 \
-	$(nil)
+	# EOL
 
 CLEANFILES = \
 	md4.3 \
 	md5.3 \
-	$(nil)
+	# EOL
 
 SED_MD2_SUBST = -e 's/mdX/md2/g' -e 's/MDX/MD2/g'
 SED_MD4_SUBST = -e 's/mdX/md4/g' -e 's/MDX/MD4/g'
@@ -28,7 +28,7 @@ dist_man_MANS = \
 	rmd160.3 \
 	sha1.3 \
 	sha2.3 \
-	$(nil)
+	# EOL
 
 md2_FUNCS = \
 	MD2Transform \
@@ -39,7 +39,7 @@ md2_FUNCS = \
 	MD2File \
 	MD2FileChunk \
 	MD2Data \
-	$(nil)
+	# EOL
 
 $(md2_FUNCS): md2.3
 	$(LN_S) -f md2.3 $(DESTDIR)$(man3dir)/$@.3
@@ -54,7 +54,7 @@ md4_FUNCS = \
 	MD4FileChunk \
 	MD4Pad \
 	MD4Data \
-	$(nil)
+	# EOL
 
 $(md4_FUNCS): md4.3
 	$(LN_S) -f md4.3 $(DESTDIR)$(man3dir)/$@.3
@@ -69,7 +69,7 @@ md5_FUNCS = \
 	MD5FileChunk \
 	MD5Pad \
 	MD5Data \
-	$(nil)
+	# EOL
 
 $(md5_FUNCS): md5.3
 	$(LN_S) -f md5.3 $(DESTDIR)$(man3dir)/$@.3
@@ -84,7 +84,7 @@ rmd160_FUNCS = \
 	RMD160FileChunk \
 	RMD160Pad \
 	RMD160Data \
-	$(nil)
+	# EOL
 
 $(rmd160_FUNCS): rmd160.3
 	$(LN_S) -f rmd160.3 $(DESTDIR)$(man3dir)/$@.3
@@ -99,7 +99,7 @@ sha1_FUNCS = \
 	SHA1FileChunk \
 	SHA1Pad \
 	SHA1Data \
-	$(nil)
+	# EOL
 
 $(sha1_FUNCS): sha1.3
 	$(LN_S) -f sha1.3 $(DESTDIR)$(man3dir)/$@.3
@@ -132,7 +132,7 @@ sha2_FUNCS = \
 	SHA512File \
 	SHA512FileChunk \
 	SHA512Data \
-	$(nil)
+	# EOL
 
 $(sha2_FUNCS): sha2.3
 	$(LN_S) -f sha2.3 $(DESTDIR)$(man3dir)/$@.3
@@ -144,6 +144,6 @@ digest_FUNCS = \
 	$(rmd160_FUNCS) \
 	$(sha1_FUNCS) \
 	$(sha2_FUNCS) \
-	$(nil)
+	# EOL
 
 install-data-hook: $(digest_FUNCS)
