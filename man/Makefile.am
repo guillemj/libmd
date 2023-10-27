@@ -105,6 +105,15 @@ $(sha1_FUNCS): sha1.3
 	$(LN_S) -f sha1.3 $(DESTDIR)$(man3dir)/$@.3
 
 sha2_FUNCS = \
+	SHA224Init \
+	SHA224Update \
+	SHA224Pad \
+	SHA224Final \
+	SHA224Transform \
+	SHA224End \
+	SHA224File \
+	SHA224FileChunk \
+	SHA224Data \
 	SHA256Init \
 	SHA256Update \
 	SHA256Pad \
@@ -132,6 +141,15 @@ sha2_FUNCS = \
 	SHA512File \
 	SHA512FileChunk \
 	SHA512Data \
+	SHA512_256Init \
+	SHA512_256Update \
+	SHA512_256Pad \
+	SHA512_256Final \
+	SHA512_256Transform \
+	SHA512_256End \
+	SHA512_256File \
+	SHA512_256FileChunk \
+	SHA512_256Data \
 	# EOL
 
 $(sha2_FUNCS): sha2.3
