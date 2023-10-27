@@ -83,39 +83,39 @@ libmd.sym: libmd.map
 	$(AM_V_GEN) $(SED) -ne 's/^[[:space:]]\{1,\}\([A-Za-z0-9_]\{1,\}\);/\1/p' libmd.map > $@
 
 md2hl.c: helper.c
-	$(AM_V_GEN) $(SED) -e 's/hashinc/md2.h/g' -e 's/HASH/MD2/g' helper.c > $@
+	$(AM_V_GEN) $(SED) -e 's/hashinc/md2.h/g' -e 's/HASH/MD2/g' "$(srcdir)/helper.c" > $@
 
 md4hl.c: helper.c
-	$(AM_V_GEN) $(SED) -e 's/hashinc/md4.h/g' -e 's/HASH/MD4/g' helper.c > $@
+	$(AM_V_GEN) $(SED) -e 's/hashinc/md4.h/g' -e 's/HASH/MD4/g' "$(srcdir)/helper.c" > $@
 
 md5hl.c: helper.c
-	$(AM_V_GEN) $(SED) -e 's/hashinc/md5.h/g' -e 's/HASH/MD5/g' helper.c > $@
+	$(AM_V_GEN) $(SED) -e 's/hashinc/md5.h/g' -e 's/HASH/MD5/g' "$(srcdir)/helper.c" > $@
 
 rmd160hl.c: helper.c
-	$(AM_V_GEN) $(SED) -e 's/hashinc/rmd160.h/g' -e 's/HASH/RMD160/g' helper.c > $@
+	$(AM_V_GEN) $(SED) -e 's/hashinc/rmd160.h/g' -e 's/HASH/RMD160/g' "$(srcdir)/helper.c" > $@
 
 sha1hl.c: helper.c
-	$(AM_V_GEN) $(SED) -e 's/hashinc/sha1.h/g' -e 's/HASH/SHA1/g' helper.c > $@
+	$(AM_V_GEN) $(SED) -e 's/hashinc/sha1.h/g' -e 's/HASH/SHA1/g' "$(srcdir)/helper.c" > $@
 
 sha224hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA224/g' \
-	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' helper.c > $@
+	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' "$(srcdir)/helper.c" > $@
 
 sha256hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA256/g' \
-	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' helper.c > $@
+	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' "$(srcdir)/helper.c" > $@
 
 sha384hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA384/g' \
-	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' helper.c > $@
+	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' "$(srcdir)/helper.c" > $@
 
 sha512hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA512/g' \
-	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' helper.c > $@
+	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' "$(srcdir)/helper.c" > $@
 
 sha512_256hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA512_256/g' \
-	                -e 's/SHA512_256_CTX/SHA2_CTX/g' helper.c > $@
+	                -e 's/SHA512_256_CTX/SHA2_CTX/g' "$(srcdir)/helper.c" > $@
 
 runtimelibdir = $(libdir)
 
