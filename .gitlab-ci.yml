@@ -6,6 +6,14 @@ before_script:
             git gcc make autoconf automake libtool gcovr
   - ./autogen
 
+vpath-tests:
+  stage: test
+  script:
+    - mkdir -p build-tree
+    - cd build-tree
+    - ../configure
+    - make check
+
 unit-tests:
   stage: test
   script:
