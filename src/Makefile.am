@@ -31,7 +31,7 @@ EXTRA_libmd_la_DEPENDENCIES = \
 
 libmd_la_LDFLAGS = \
 	-no-undefined \
-	-version-number $(LIBMD_ABI) \
+	-version-number $(SOVERSION) \
 	# EOL
 if HAVE_LINKER_VERSION_SCRIPT
 libmd_la_LDFLAGS += \
