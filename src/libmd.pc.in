@@ -7,5 +7,7 @@ Name: libmd
 Description: Message Digest functions from BSD systems
 Version: @VERSION@
 URL: https://www.hadrons.org/software/libmd/
+Maintainer: <@PACKAGE_BUGREPORT@>
+License: BSD-3-Clause and BSD-2-Clause and ISC and Beerware
 Libs: -L${libdir} -lmd
 Cflags: -I${includedir}
