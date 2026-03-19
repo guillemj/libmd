@@ -102,6 +102,13 @@ AC_TYPE_SIZE_T
 AC_TYPE_SSIZE_T
 
 # Checks for library functions.
+AC_CHECK_FUNCS([
+  explicit_bzero
+  explicit_memset
+  memset_explicit
+])
+AM_CONDITIONAL([NEED_EXPLICIT_BZERO],
+  [test "$ac_cv_func_explicit_bzero" != "yes"])
 
 AC_CONFIG_FILES([
   Makefile

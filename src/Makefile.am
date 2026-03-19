@@ -26,6 +26,12 @@ libmd_la_helper_sources = \
 	sha512_256hl.c \
 	# EOL
 
+if NEED_EXPLICIT_BZERO
+libmd_la_helper_sources += \
+	bzero.c \
+	# EOL
+endif
+
 EXTRA_libmd_la_DEPENDENCIES = \
 	libmd.map
 
@@ -50,6 +56,7 @@ EXTRA_libmd_la_DEPENDENCIES += \
 	# EOL
 libmd_la_SOURCES = \
 	local-link.h \
+	local-string.h \
 	md2.c \
 	md4.c \
 	md5.c \
