@@ -3,7 +3,7 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Files:
  *
 Copyright:
- Copyright © 2009, 2011, 2016 Guillem Jover <guillem@hadrons.org>
+ 2009, 2011, 2016 Guillem Jover <guillem@hadrons.org>
 License: BSD-3-clause
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
@@ -31,7 +31,7 @@ Files:
  include/sha2.h
  src/sha2.c
 Copyright:
- Copyright © 2000-2001, Aaron D. Gifford
+ 2000-2001 Aaron D. Gifford
 License: BSD-3-clause-Aaron-D-Gifford
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
@@ -61,7 +61,7 @@ Files:
  include/rmd160.h
  src/rmd160.c
 Copyright:
- Copyright © 2001 Markus Friedl
+ 2001 Markus Friedl
 License: BSD-2-clause
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
@@ -86,7 +86,7 @@ License: BSD-2-clause
 Files:
  src/md2.c
 Copyright:
- Copyright (c) 2001 The NetBSD Foundation, Inc.
+ 2001 The NetBSD Foundation, Inc.
  .
  This code is derived from software contributed to The NetBSD Foundation
  by Andrew Brown.
@@ -117,7 +117,7 @@ Files:
  man/sha1.3
  man/sha2.3
 Copyright:
- Copyright © 1997, 2003, 2004 Todd C. Miller <Todd.Miller@courtesan.com>
+ 1997, 2003, 2004 Todd C. Miller <Todd.Miller@courtesan.com>
 License: ISC
  Permission to use, copy, modify, and distribute this software for any
  purpose with or without fee is hereby granted, provided that the above
