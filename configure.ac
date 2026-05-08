@@ -11,7 +11,7 @@ AM_INIT_AUTOMAKE(
   [-Wall]
   [foreign]
   [nostdinc]
-  [no-dist-gzip dist-xz]
+  [tar-ustar no-dist-gzip dist-xz]
 )
 AM_SILENT_RULES([yes])
 
