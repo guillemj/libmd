@@ -87,8 +87,8 @@ Files:
  src/md2.c
 Copyright:
  2001 The NetBSD Foundation, Inc.
- .
- This code is derived from software contributed to The NetBSD Foundation
+Comment:
+ Some code is derived from software contributed to The NetBSD Foundation
  by Andrew Brown.
 License: BSD-2-clause-NetBSD
  Redistribution and use in source and binary forms, with or without
