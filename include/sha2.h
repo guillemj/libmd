@@ -54,6 +54,9 @@
 #define SHA512_BLOCK_LENGTH		128
 #define SHA512_DIGEST_LENGTH		64
 #define SHA512_DIGEST_STRING_LENGTH	(SHA512_DIGEST_LENGTH * 2 + 1)
+#define SHA512_224_BLOCK_LENGTH		128
+#define SHA512_224_DIGEST_LENGTH	28
+#define SHA512_224_DIGEST_STRING_LENGTH	(SHA512_224_DIGEST_LENGTH * 2 + 1)
 #define SHA512_256_BLOCK_LENGTH		128
 #define SHA512_256_DIGEST_LENGTH	32
 #define SHA512_256_DIGEST_STRING_LENGTH	(SHA512_256_DIGEST_LENGTH * 2 + 1)
@@ -112,6 +115,16 @@ char *SHA512End(SHA2_CTX *, char *);
 char *SHA512File(const char *, char *);
 char *SHA512FileChunk(const char *, char *, off_t, off_t);
 char *SHA512Data(const uint8_t *, size_t, char *);
+
+void SHA512_224Init(SHA2_CTX *);
+void SHA512_224Transform(uint64_t state[8], const uint8_t [SHA512_224_BLOCK_LENGTH]);
+void SHA512_224Update(SHA2_CTX *, const uint8_t *, size_t);
+void SHA512_224Pad(SHA2_CTX *);
+void SHA512_224Final(uint8_t [SHA512_224_DIGEST_LENGTH], SHA2_CTX *);
+char *SHA512_224End(SHA2_CTX *, char *);
+char *SHA512_224File(const char *, char *);
+char *SHA512_224FileChunk(const char *, char *, off_t, off_t);
+char *SHA512_224Data(const uint8_t *, size_t, char *);
 
 void SHA512_256Init(SHA2_CTX *);
 void SHA512_256Transform(uint64_t state[8], const uint8_t [SHA512_256_BLOCK_LENGTH]);

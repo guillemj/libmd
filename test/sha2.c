@@ -34,6 +34,7 @@ DEF_TEST_DIGEST(SHA224, SHA2)
 DEF_TEST_DIGEST(SHA256, SHA2)
 DEF_TEST_DIGEST(SHA384, SHA2)
 DEF_TEST_DIGEST(SHA512, SHA2)
+DEF_TEST_DIGEST(SHA512_224, SHA2)
 DEF_TEST_DIGEST(SHA512_256, SHA2)
 
 int
@@ -66,6 +67,13 @@ main(int argc, char *argv[])
 	            "abc");
 	test_SHA512("3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79",
 	            "12345");
+
+	test_SHA512_224("6ed0dd02806fa89e25de060c19d3ac86cabb87d6a0ddd05c333b84f4",
+	                "");
+	test_SHA512_224("4634270f707b6a54daae7530460842e20e37ed265ceee9a43e8924aa",
+	                "abc");
+	test_SHA512_224("a7e0fc5cff225f68e762eb5de497d11554775f6bfae7acf5cfc4c209",
+	                "12345");
 
 	test_SHA512_256("c672b8d1ef56ed28ab87c3622c5114069bdd3ad7b8f9737498d0c01ecef0967a",
 	                "");

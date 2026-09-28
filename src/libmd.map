@@ -134,3 +134,16 @@ global:
 
 	SHA3_Selftest;
 } LIBMD_0.1;
+
+LIBMD_0.3 {
+global:
+	SHA512_224Data;
+	SHA512_224End;
+	SHA512_224File;
+	SHA512_224FileChunk;
+	SHA512_224Final;
+	SHA512_224Init;
+	SHA512_224Pad;
+	SHA512_224Transform;
+	SHA512_224Update;
+} LIBMD_0.2;

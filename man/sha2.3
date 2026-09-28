@@ -60,6 +60,15 @@
 .Nm SHA512File ,
 .Nm SHA512FileChunk ,
 .Nm SHA512Data ,
+.Nm SHA512_224Init ,
+.Nm SHA512_224Update ,
+.Nm SHA512_224Pad ,
+.Nm SHA512_224Final ,
+.Nm SHA512_224Transform ,
+.Nm SHA512_224End ,
+.Nm SHA512_224File ,
+.Nm SHA512_224FileChunk ,
+.Nm SHA512_224Data ,
 .Nm SHA512_256Init ,
 .Nm SHA512_256Update ,
 .Nm SHA512_256Pad ,
@@ -148,6 +157,24 @@
 .Ft "char *"
 .Fn SHA512Data "const uint8_t *data" "size_t len" "char *buf"
 .Ft void
+.Fn SHA512_224Init "SHA2_CTX *context"
+.Ft void
+.Fn SHA512_224Update "SHA2_CTX *context" "const uint8_t *data" "size_t len"
+.Ft void
+.Fn SHA512_224Pad "SHA2_CTX *context"
+.Ft void
+.Fn SHA512_224Final "uint8_t digest[SHA512_224_DIGEST_LENGTH]" "SHA2_CTX *context"
+.Ft void
+.Fn SHA512_224Transform "uint64_t state[8]" "const uint8_t buffer[SHA512_224_BLOCK_LENGTH]"
+.Ft "char *"
+.Fn SHA512_224End "SHA2_CTX *context" "char *buf"
+.Ft "char *"
+.Fn SHA512_224File "const char *filename" "char *buf"
+.Ft "char *"
+.Fn SHA512_224FileChunk "const char *filename" "char *buf" "off_t offset" "off_t length"
+.Ft "char *"
+.Fn SHA512_224Data "const uint8_t *data" "size_t len" "char *buf"
+.Ft void
 .Fn SHA512_256Init "SHA2_CTX *context"
 .Ft void
 .Fn SHA512_256Update "SHA2_CTX *context" "const uint8_t *data" "size_t len"
@@ -180,7 +207,7 @@ bits as input.
 The SHA2 functions are considered to be more secure than the SHA1 functions,
 with which they share a similar interface.
 The 224, 256, 384, and 512-bit versions of SHA2 share the same interface.
-SHA512/256, a truncated version of SHA512, is also supported.
+SHA512/224 and SHA512/256, truncated versions of SHA512, are also supported.
 For brevity, only the 256-bit variants are described below.
 .Pp
 The
@@ -281,6 +308,7 @@ parameter should either be a string large enough to hold the resulting digest
 .Dv SHA256_DIGEST_STRING_LENGTH ,
 .Dv SHA384_DIGEST_STRING_LENGTH ,
 .Dv SHA512_DIGEST_STRING_LENGTH ,
+.Dv SHA512_224_DIGEST_STRING_LENGTH ,
 or
 .Dv SHA512_256_DIGEST_STRING_LENGTH ,
 depending on the function being used)

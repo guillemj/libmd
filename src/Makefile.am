@@ -23,6 +23,7 @@ libmd_la_helper_sources = \
 	sha256hl.c \
 	sha384hl.c \
 	sha512hl.c \
+	sha512_224hl.c \
 	sha512_256hl.c \
 	# EOL
 
@@ -123,6 +124,10 @@ sha384hl.c: helper.c
 sha512hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA512/g' \
 	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' "$(srcdir)/helper.c" > $@
+
+sha512_224hl.c: helper.c
+	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA512_224/g' \
+	                -e 's/SHA512_224_CTX/SHA2_CTX/g' "$(srcdir)/helper.c" > $@
 
 sha512_256hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA512_256/g' \

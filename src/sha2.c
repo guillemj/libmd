@@ -258,6 +258,18 @@ static const uint64_t sha384_initial_hash_value[8] = {
 	0x47b5481dbefa4fa4ULL
 };
 
+/* Initial hash value H for SHA-512-224 */
+static const uint64_t sha512_224_initial_hash_value[8] = {
+	0x8c3d37c819544da2ULL,
+	0x73e1996689dcd4d6ULL,
+	0x1dfab7ae32ff9c82ULL,
+	0x679dd514582f9fcfULL,
+	0x0f6d2b697bd44da8ULL,
+	0x77e36f7304c48942ULL,
+	0x3f9d85a86a1d36c8ULL,
+	0x1112e6ad91d692a1ULL
+};
+
 /* Initial hash value H for SHA-512-256 */
 static const uint64_t sha512_256_initial_hash_value[8] = {
 	0x22312194fc2bf72cULL,
@@ -929,6 +941,60 @@ SHA384Final(uint8_t digest[SHA384_DIGEST_LENGTH], SHA2_CTX *context)
 		BE_64_TO_8(digest + i * 8, context->state.st64[i]);
 #else
 	memcpy(digest, context->state.st64, SHA384_DIGEST_LENGTH);
+#endif
+	/* Zero out state data */
+	memset(context, 0, sizeof(*context));
+}
+
+/*** SHA-512/224: *********************************************************/
+void
+SHA512_224Init(SHA2_CTX *context)
+{
+	memcpy(context->state.st64, sha512_224_initial_hash_value,
+	    sizeof(sha512_224_initial_hash_value));
+	memset(context->buffer, 0, sizeof(context->buffer));
+	context->bitcount[0] = context->bitcount[1] = 0;
+}
+
+#ifdef libmd_strong_alias
+libmd_strong_alias(SHA512_224Transform, SHA512Transform);
+libmd_strong_alias(SHA512_224Update, SHA512Update);
+libmd_strong_alias(SHA512_224Pad, SHA512Pad);
+#else
+void
+SHA512_224Transform(uint64_t state[8], const uint8_t data[SHA512_224_BLOCK_LENGTH])
+{
+	SHA512Transform(state, data);
+}
+
+void
+SHA512_224Update(SHA2_CTX *context, const uint8_t *data, size_t len)
+{
+	SHA512Update(context, data, len);
+}
+
+void
+SHA512_224Pad(SHA2_CTX *context)
+{
+	SHA512Pad(context);
+}
+#endif
+
+void
+SHA512_224Final(uint8_t digest[SHA512_224_DIGEST_LENGTH], SHA2_CTX *context)
+{
+#ifndef WORDS_BIGENDIAN
+	int	i;
+#endif
+
+	SHA512_224Pad(context);
+
+#ifndef WORDS_BIGENDIAN
+	/* Convert TO host byte order */
+	for (i = 0; i < 4; i++)
+		BE_64_TO_8(digest + i * 8, context->state.st64[i]);
+#else
+	memcpy(digest, context->state.st64, SHA512_224_DIGEST_LENGTH);
 #endif
 	/* Zero out state data */
 	memset(context, 0, sizeof(*context));
