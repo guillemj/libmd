@@ -991,8 +991,9 @@ SHA512_224Final(uint8_t digest[SHA512_224_DIGEST_LENGTH], SHA2_CTX *context)
 
 #ifndef WORDS_BIGENDIAN
 	/* Convert TO host byte order */
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < 3; i++)
 		BE_64_TO_8(digest + i * 8, context->state.st64[i]);
+	BE_32_TO_8(digest + i * 8, context->state.st64[i] >> 32);
 #else
 	memcpy(digest, context->state.st64, SHA512_224_DIGEST_LENGTH);
 #endif
