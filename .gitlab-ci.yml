@@ -1,5 +1,11 @@
 image: debian:latest
 
+artifacts:
+  when: on_failure
+  paths:
+    - test/test-suite.log
+    - build-tree/test/test-suite.log
+
 before_script:
   - apt-get update -qq
   - apt-get install -qq -y --no-install-recommends
