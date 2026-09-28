@@ -1,11 +1,5 @@
 image: debian:latest
 
-artifacts:
-  when: on_failure
-  paths:
-    - test/test-suite.log
-    - build-tree/test/test-suite.log
-
 before_script:
   - apt-get update -qq
   - apt-get install -qq -y --no-install-recommends
@@ -19,12 +13,20 @@ vpath-tests:
     - cd build-tree
     - ../configure
     - make check
+  artifacts:
+    when: on_failure
+    paths:
+    - build-tree/test/test-suite.log
 
 unit-tests:
   stage: test
   script:
     - ./configure --enable-sanitize
     - make check
+  artifacts:
+    when: on_failure
+    paths:
+    - test/test-suite.log
 
 coverage:
   stage: test
